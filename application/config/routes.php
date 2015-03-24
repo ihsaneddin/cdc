@@ -49,6 +49,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'welcome';
+
+//pigeon routes
+Pigeon::map(function($route){
+	$route->route('admin', 'admin', function($r){
+    	$prefix = 'admin';
+    	$r->get('login', $prefix.'/sessions#create');
+		$r->post('login', $prefix.'/sessions#create');
+		$r->get('logout', $prefix.'/sessions#delete');
+		$r->get('home', $prefix.'/home#index');
+		$r->get('users', $prefix.'/users#index');
+
+	});
+
+});
+$route = Pigeon::draw();
+$route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
