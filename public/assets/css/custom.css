@@ -1,3 +1,6 @@
 .panel-heading .with-panel-action{
 	display: inline-block;
 }
+.error-validation-message {
+	color: #C9302C;
+}

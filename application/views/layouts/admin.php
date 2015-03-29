@@ -29,12 +29,16 @@
 
         <link href="<?php css_url('buttons.css') ?>" rel="stylesheet" media="screen">
         <link href="<?php css_url('custom.css') ?>" rel="stylesheet" media="screen">
+        <link href="<?php asset_url('js/plugins/kartik-v-bootstrap-fileinput/css/fileinput.css') ?>" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="<?php asset_url('js/plugins/datepicker/css/bootstrap-datepicker.min.css')?>">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="../assets/js/html5shiv.min.js"></script>
             <script src="../assets/js/respond.min.js"></script>
         <![endif]-->
+        <script src="<?php javascript_url('jquery.min.js')?>"></script>
     </head>
 
     <body>
@@ -46,10 +50,13 @@
 
             	<?php echo $this->load->get_section('navigation'); ?>
 
-                <?php echo $this->load->get_section('breadcrumbs');?>
+                <div class="container">
+                    <?php echo $this->load->get_section('breadcrumbs');?>
 
-                    <?php echo $this->load->get_section('content'); ?>
+                    <?php echo $this->load->get_section('flash_message');?>
 
+                        <?php echo $this->load->get_section('content'); ?>
+                </div>
 
                 <?php echo $this->load->get_section('footer'); ?>
 
@@ -63,7 +70,6 @@
         </div>
 
         <!-- Scripts -->
-        <script src="<?php javascript_url('jquery.min.js')?>"></script>
         <script src="<?php javascript_url('jquery.cookie.js')?>"></script>
         <script src="<?php javascript_url('bootstrap.min.js')?>"></script>
         <script src="<?php javascript_url('bootstrap-switch.min.js')?>"></script>
@@ -75,6 +81,9 @@
         <script src="<?php javascript_url('styleswitcher.js')?>"></script>
         <script src="<?php javascript_url('jquery.mixitup.min.js')?>"></script>
         <script src="<?php javascript_url('circles.min.js')?>"></script>
+        <script src="<?php javascript_url('moment.js')?>"></script>
+        <script type="text/javascript" src="<?php javascript_url('plugins/datepicker/js/bootstrap-datepicker.js')?>"></script>
+        <script src="<?php javascript_url('plugins/kartik-v-bootstrap-fileinput/js/fileinput.min.js')?>"></script>
 
         <!-- Syntaxhighlighter -->
         <script src="<?php javascript_url('syntaxhighlighter/shCore.js')?>"></script>
@@ -96,6 +105,7 @@
 
 
         </script>
+
 
     </body>
 

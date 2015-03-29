@@ -58,11 +58,16 @@ Pigeon::map(function($route){
 		$r->post('login', $prefix.'/sessions#create');
 		$r->get('logout', $prefix.'/sessions#delete');
 		$r->get('home', $prefix.'/home#index');
-		$r->get('users', $prefix.'/users#index');
-
+		$r->get('profile', 'profiles#show');
+		$r->get('profile/edit', 'profiles#edit');
+		$r->post('profile/update', 'profiles#update');
+		$r->get('profile/edit_password', 'profiles#edit_password');
+		$r->post('profile/update_password', 'profiles#update_password');
+		$r->resources('admin/users');
 	});
 
 });
+
 $route = Pigeon::draw();
 $route['default_controller'] = 'home';
 $route['404_override'] = '';

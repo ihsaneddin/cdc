@@ -72,3 +72,11 @@ jQuery(document).ready(function() { // makes sure the whole site is loaded
 // full-width-checkbox
 $("[name='full-width-checkbox']").bootstrapSwitch();
 
+
+
+function initializeFileInput(input,options)
+{
+  input.fileinput(
+    options
+  );
+}

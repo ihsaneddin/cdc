@@ -1,3 +1,1 @@
-<div class="container">
-	<?php echo $this->breadcrumb->output();?>
-</div>
+<?php echo $this->breadcrumb->output();?>

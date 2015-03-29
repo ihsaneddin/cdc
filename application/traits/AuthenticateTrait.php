@@ -38,7 +38,7 @@ trait AuthenticateTrait{
 	protected function _remember()
 	{
 		if (array_key_exists('remember', $this->input->post())) {
-			if ($this->input->post()['remember'] == true)	return true;
+			if ($this->input->post('remember') == true)	return true;
 		}
 		return false;
 	}
@@ -54,7 +54,7 @@ trait AuthenticateTrait{
 	{
 		if (!empty($this->current_user))
 		{
-			$this->session->set_flashdata('notice', 'You are alreadt logged in');
+			$this->session->set_flashdata('notice', 'You are already logged in');
 			redirect($this->after_login_url);
 		}
 	}
