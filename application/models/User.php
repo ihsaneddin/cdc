@@ -9,6 +9,11 @@ class User extends Eloquent{
  	public $table = "users";
  	protected $appends = ['full_name', 'avatar_url'];
 
+ 		public function groups()
+	{
+		return $this->belongsToMany('Group', 'users_groups');
+	}
+
  	public function scopeFilter($res, $search)
 	{
 		if (!empty($search))
@@ -32,5 +37,11 @@ class User extends Eloquent{
 	{
 		return empty($this->avatar) ? base_url('public/assets/img/avatar-default.png') : image_url($this->avatar);
 	}
+
+	public function scopeBuild_trainers_select($res)
+	{
+		return $res->leftJoin('users_groups', 'users.id', '=', 'users_groups.user_id')->leftJoin('groups', 'groups.id', '=', 'users_groups.group_id')
+					->select('users.id', 'users.username','first_name', 'last_name', 'groups.name')->where('groups.name', '=', 'trainer');
+	} 
 
 }

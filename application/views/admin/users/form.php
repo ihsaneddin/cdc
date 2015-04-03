@@ -48,7 +48,7 @@
     </div>
 
     <div class="form-group <?php has_error(form_error('phone_number'))?>">
-      <?php echo form_label('Student Id', 'phone_number', array('class' => 'control-label'))?>
+      <?php echo form_label('Phone Number', 'phone_number', array('class' => 'control-label'))?>
       <?php echo form_input(array('class' => 'form-control', 'name' => 'phone_number', 'id' => 'phone_number', 'value' => input_value($user->phone_number,'phone_number') ))?>
       <?php echo form_error('phone_number') ?>
     </div>

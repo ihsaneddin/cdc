@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9f8486df2f0c4a042d4b4034fb53ced3",
+    "hash": "2c5252d3fb0025ab7088acbd4d31bb30",
     "packages": [
         {
             "name": "cartalyst/sentry",
@@ -107,6 +107,56 @@
             "time": "2015-03-06 03:17:20"
         },
         {
+            "name": "cviebrock/eloquent-sluggable",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cviebrock/eloquent-sluggable.git",
+                "reference": "fcc70e6f27b0d0ff116c7163ef428dd61c387b05"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cviebrock/eloquent-sluggable/zipball/fcc70e6f27b0d0ff116c7163ef428dd61c387b05",
+                "reference": "fcc70e6f27b0d0ff116c7163ef428dd61c387b05",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "4.*",
+                "illuminate/database": "4.*",
+                "illuminate/support": "4.*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "laravelbook/ardent": "dev-master",
+                "orchestra/testbench": "2.1.*",
+                "phpunit/phpunit": "4.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Cviebrock\\EloquentSluggable": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colin Viebrock",
+                    "email": "colin@viebrock.ca"
+                }
+            ],
+            "description": "Easy creation of slugs for your Eloquent models in Laravel 4.",
+            "homepage": "https://github.com/cviebrock/eloquent-sluggable",
+            "keywords": [
+                "eloquent",
+                "laravel",
+                "slug"
+            ],
+            "time": "2014-11-13 20:05:40"
+        },
+        {
             "name": "illuminate/cache",
             "version": "v4.2.17",
             "target-dir": "Illuminate/Cache",
@@ -154,6 +204,49 @@
                 }
             ],
             "time": "2015-01-12 15:54:26"
+        },
+        {
+            "name": "illuminate/config",
+            "version": "v4.2.17",
+            "target-dir": "Illuminate/Config",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/config.git",
+                "reference": "24b9e07a7c0245eb25574688bef49f873b904385"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/config/zipball/24b9e07a7c0245eb25574688bef49f873b904385",
+                "reference": "24b9e07a7c0245eb25574688bef49f873b904385",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "4.2.*",
+                "illuminate/support": "4.2.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Illuminate\\Config": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "time": "2014-11-15 19:22:33"
         },
         {
             "name": "illuminate/container",
@@ -835,17 +928,17 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v2.6.5",
+            "version": "v2.6.6",
             "target-dir": "Symfony/Component/Debug",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Debug.git",
-                "reference": "5c1570dea188ade0c6c5e874c2f0a6570587aa1c"
+                "reference": "d49a46a20a8f0544aedac54466750ad787d3d3e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Debug/zipball/5c1570dea188ade0c6c5e874c2f0a6570587aa1c",
-                "reference": "5c1570dea188ade0c6c5e874c2f0a6570587aa1c",
+                "url": "https://api.github.com/repos/symfony/Debug/zipball/d49a46a20a8f0544aedac54466750ad787d3d3e3",
+                "reference": "d49a46a20a8f0544aedac54466750ad787d3d3e3",
                 "shasum": ""
             },
             "require": {
@@ -892,11 +985,11 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-13 17:37:22"
+            "time": "2015-03-22 16:55:57"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.6.5",
+            "version": "v2.6.6",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
@@ -955,7 +1048,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v2.5.10",
+            "version": "v2.5.11",
             "target-dir": "Symfony/Component/Finder",
             "source": {
                 "type": "git",
@@ -1002,17 +1095,17 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.5.10",
+            "version": "v2.5.11",
             "target-dir": "Symfony/Component/HttpFoundation",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "89c650efaca9540101004852d232c96672bbb91c"
+                "reference": "08e783861dd9579bac4092814bbfb0cae6666b65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/89c650efaca9540101004852d232c96672bbb91c",
-                "reference": "89c650efaca9540101004852d232c96672bbb91c",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/08e783861dd9579bac4092814bbfb0cae6666b65",
+                "reference": "08e783861dd9579bac4092814bbfb0cae6666b65",
                 "shasum": ""
             },
             "require": {
@@ -1051,21 +1144,21 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2015-02-01 09:36:16"
+            "time": "2015-04-01 15:49:36"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v2.5.10",
+            "version": "v2.5.11",
             "target-dir": "Symfony/Component/HttpKernel",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "a28ec28c98e8f1db9b499fc449a5d33ec281ea2e"
+                "reference": "7b1632cf2bdbc69c59a44942b70d5aae91034304"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/a28ec28c98e8f1db9b499fc449a5d33ec281ea2e",
-                "reference": "a28ec28c98e8f1db9b499fc449a5d33ec281ea2e",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/7b1632cf2bdbc69c59a44942b70d5aae91034304",
+                "reference": "7b1632cf2bdbc69c59a44942b70d5aae91034304",
                 "shasum": ""
             },
             "require": {
@@ -1125,11 +1218,11 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2015-02-02 09:26:53"
+            "time": "2015-04-01 16:01:45"
         },
         {
             "name": "symfony/security-core",
-            "version": "v2.5.10",
+            "version": "v2.5.11",
             "target-dir": "Symfony/Component/Security/Core",
             "source": {
                 "type": "git",
@@ -1192,7 +1285,7 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v2.5.10",
+            "version": "v2.5.11",
             "target-dir": "Symfony/Component/Translation",
             "source": {
                 "type": "git",

@@ -4,13 +4,14 @@ require_once('connection.php');
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Group extends Eloquent{
+class Training extends Eloquent{
 
- 	public $table = "groups";
+ 	public $table = "trainings";
 
-	public function users()
-	{
-		return $this->belongsToMany('User', 'users_groups');
-	}
+ 	public function training_materials()
+ 	{
+ 		return $this->hasMany('TrainingMaterial');
+ 	}
+
 
 }

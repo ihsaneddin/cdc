@@ -64,6 +64,7 @@ Pigeon::map(function($route){
 		$r->get('profile/edit_password', 'profiles#edit_password');
 		$r->post('profile/update_password', 'profiles#update_password');
 		$r->resources('admin/users');
+		$r->resources('admin/trainings');
 	});
 
 });

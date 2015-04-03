@@ -8,7 +8,8 @@
 		"Illuminate/pagination" : "*",
 		"philo/laravel-blade": "2.*",
 		"cartalyst/sentry": "2.1.*",
-		"jamierumbelow/pigeon": "*"
+		"jamierumbelow/pigeon": "*",
+		"cviebrock/eloquent-sluggable" : "*"
 	},
 	"require-dev": {
 		"mikey179/vfsStream": "1.1.*"

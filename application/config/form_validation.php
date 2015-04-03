@@ -61,5 +61,21 @@ $config = array(
 					'rules' => 'required|matches[password]'
 					)
 
+				),
+			'training' => array(
+				array(
+					'field' => 'title',
+					'label' => 'Title', 
+					'rules' => 'required|min_length[3]|is_unique[trainings.title]'
+					),
+				array(
+					'field' => 'end_date',
+					'label' => 'End date',
+					'rules' => 'required|date_greater_than[start_date]'
+					),
+				array(
+					'field' => 'start_date',
+					'label' => 'Start date',
+					'rules' => 'required')
 				)
 		);

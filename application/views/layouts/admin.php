@@ -32,6 +32,8 @@
         <link href="<?php asset_url('js/plugins/kartik-v-bootstrap-fileinput/css/fileinput.css') ?>" rel="stylesheet">
 
         <link rel="stylesheet" type="text/css" href="<?php asset_url('js/plugins/datepicker/css/bootstrap-datepicker.min.css')?>">
+        <link rel="stylesheet" type="text/css" href="<?php asset_url('js/plugins/jquery.chosen/chosen.css')?>">
+
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -84,6 +86,7 @@
         <script src="<?php javascript_url('moment.js')?>"></script>
         <script type="text/javascript" src="<?php javascript_url('plugins/datepicker/js/bootstrap-datepicker.js')?>"></script>
         <script src="<?php javascript_url('plugins/kartik-v-bootstrap-fileinput/js/fileinput.min.js')?>"></script>
+        <script src="<?php javascript_url('plugins/jquery.chosen/chosen.jquery.min.js')?>"></script>
 
         <!-- Syntaxhighlighter -->
         <script src="<?php javascript_url('syntaxhighlighter/shCore.js')?>"></script>
