@@ -32,9 +32,27 @@
         </thead>
         <tbody>
           <?php echo empty_table($trainings['data'],6) ?>
+          <?php $i = tr_number($trainings) ?>
           <?php foreach ($trainings['data'] as $training) {?>
             <tr>
+              <td>
+                  <?php echo $i; $i++?>
+              </td>
+              <td>
+                <?php echo $training['title'] ?>
+              </td>
+              <td>
+                <?php echo $training['start_date'] ?>
+              </td>
+              <td>
+                <?php echo $training['end_date']?>
+              </td>
+              <td>
 
+              </td>
+              <td>
+
+              </td>
             </tr>
           <?php }?>
         </tbody>

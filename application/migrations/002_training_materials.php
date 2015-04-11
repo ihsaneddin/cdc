@@ -7,7 +7,7 @@ class Migration_Training_Materials extends CI_Migration {
 			array(
 				'id' => array('type' => 'INT', 'unsigned' => true, 'auto_increment' => true),
 				'training_id' => array('type' => 'INT', 'unsigned' => true),
-				'file' => array( 'type' => 'VARCHAR', 'constraint' => '255'),
+				'file_name' => array( 'type' => 'VARCHAR', 'constraint' => '255'),
 				'created_at' => ['type' => 'TIMESTAMP', 'default' => '0000-00-00 00:00:00'],
 				'updated_at' => ['type' => 'TIMESTAMP', 'default' => '0000-00-00 00:00:00'],
 				)

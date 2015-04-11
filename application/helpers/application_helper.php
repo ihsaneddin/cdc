@@ -54,6 +54,20 @@ function pagination_info($data =array())
 	}
 }
 
+function tr_number($data = array())
+{
+	if (!empty($data))
+	{
+		$factor = $data['current_page'] - 1;
+		if($factor == 0)
+		{
+			return 1;
+		}
+		$entries = count($data['data']) + ($data['per_page'] * $factor);
+		return $entries;
+	}
+}
+
 function empty_table($records, $column=6)
 {
 	if (empty($records)) return '<tr><td colspan="'.$column.'" class="error-validation-message"><center>No record found!</center></td></tr>';
@@ -64,4 +78,13 @@ function input_value($object_value ,$attribute)
 	$value = set_value($attribute);
 	$value = empty($value) ? $object_value : $value;
 	return $value;
+}
+
+function underscore($input) {
+  preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
+  $ret = $matches[0];
+  foreach ($ret as &$match) {
+    $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
+  }
+  return implode('_', $ret);
 }

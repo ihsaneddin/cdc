@@ -61,4 +61,16 @@ trait ResourceTrait {
 			show_404();
 		}
 	}
+
+	protected function resource_data()
+	{
+		$post = $this->input->post(underscore($this->resource_model));
+		$files = $this->input->file(underscore($this->resource_model));
+		$data = $post;
+		if (!empty( $files ))
+		{
+			$data = array_merge($post, $files);
+		}
+		return is_null($data) ? array() : $data;
+	}
 }

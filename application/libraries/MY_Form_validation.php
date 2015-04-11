@@ -33,7 +33,7 @@ class MY_Form_validation extends CI_Form_validation {
             }catch(Exception $e)
             {
                 $CI->form_validation->set_message('date_greater_than', " %s must be a date");
-            }  
+            }
         }
         return false;
     }
