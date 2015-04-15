@@ -38,5 +38,20 @@ class Base extends Eloquent implements SluggableInterface{
 	         }
 	         return true;
 	     });
+
+	     self::creating(function($model){
+	         $expected_files = $model->expected_files;
+	         if (!empty($expected_files))
+	         {
+	         	foreach ($expected_files as $field => $required) {
+	         		$original = $model->getOriginal();
+	         		if ($model->$field == '')
+	         		{
+						return false;
+	         		}
+	         	}
+	         }
+	         return true;
+	     });
 	}
 }

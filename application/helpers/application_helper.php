@@ -126,3 +126,8 @@ function total_participants($count , $max = 0, $label = 'label-default')
 	}
 	return "<span class='label ".$label."' >".$count."</span>";
 }
+
+function student_or_trainer($user)
+{
+	return $user->groups->first()->name == 'trainer' ? 'potato' : '' ;
+}

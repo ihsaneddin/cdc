@@ -84,8 +84,8 @@ class Trainings extends Admin_Controller {
 			return $select;
 		};
 		$this->options['trainers_select_options'] = $trainers_select();
-		$current_trainers_options = array_key_exists('trainer_ids', $this->resource_data()) ? $this->resource_data()['trainer_ids'] : [] ;
-		if ( empty($current_trainers_options) )
+		$this->options['current_trainers_options'] = array_key_exists('trainer_ids', $this->resource_data()) ? $this->resource_data()['trainer_ids'] : [] ;
+		if ( empty($this->options['current_trainers_options']) )
 		{
 			$this->options['current_trainers_options'] = $this->resource->current_trainers_select();
 		}

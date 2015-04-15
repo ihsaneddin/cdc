@@ -65,7 +65,7 @@ trait ResourceTrait {
 		$data = $post;
 		if (!empty( $files ))
 		{
-			$data = array_merge($post, $files);
+			$data = array_merge_recursive($post, $files);
 		}
 		return is_null($data) ? array() : $data;
 	}

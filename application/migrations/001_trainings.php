@@ -13,6 +13,7 @@ class Migration_Trainings extends CI_Migration {
 				'description' => array('type' => 'TEXT'),
 				'start_date' => array('type' => 'DATE', 'null' => false),
 				'end_date' => array('type' => 'DATE', 'null'=> false),
+				'quota' => array('type' => 'INT', 'unsigned' => true),
 				'created_at' => ['type' => 'TIMESTAMP', 'default' => '0000-00-00 00:00:00'],
 				'updated_at' => ['type' => 'TIMESTAMP', 'default' => '0000-00-00 00:00:00'],
 				)

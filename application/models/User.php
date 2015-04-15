@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class User extends Eloquent{
 
  	public $table = "users";
- 	protected $appends = ['full_name', 'avatar_url'];
+ 	protected $appends = ['full_name', 'avatar_url', 'is_student'];
 
  	public function groups()
 	{
@@ -31,6 +31,13 @@ class User extends Eloquent{
 			$res = $res->whereRaw(implode(' OR ', $query));
 		}
 		return $res;
+	}
+
+	public function getIsStudentAttribute($value)
+	{
+		foreach ($this->groups()->get()->lists('name', 'id') as $student) {
+			return $student == 'student' ? true : false;
+		}
 	}
 
 	public function getFullNameAttribute($value)

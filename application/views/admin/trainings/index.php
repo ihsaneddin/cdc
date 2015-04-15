@@ -57,7 +57,7 @@
                 <?php echo $training['total_participants'] ?>
               </td>
               <td>
-                <?php echo anchor('admin/trainings/show/'.$training['id'], '<i class="fa fa-eye" title="Detail training"></i>')?>
+                <?php echo anchor('admin/trainings/show/'.$training['id'], '<i class="fa fa-folder-open" title="Detail training"></i>')?>
                 <?php echo anchor('admin/trainings/edit/'.$training['id'], '<i class="fa fa-edit" title="Edit training"></i>')?>
                 <?php echo anchor('admin/trainings/delete/'.$training['id'], '<i class="fa fa-trash" title="Delete training"></i>')?>
               </td>

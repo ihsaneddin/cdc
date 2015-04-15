@@ -1,7 +1,7 @@
     <div class="row">
         <div class="col-md-2">
             <section>
-                <img class="img-responsive imageborder" alt="avatar" src="<?php echo $user->avatar_url ?>">
+                <img class="img-responsive imageborder" alt="avatar" src="<?php echo avatar_url($user->avatar) ?>">
             </section>
             <section>
                 <?php echo anchor('admin/users/edit/'.$user->id, '<i class="fa fa-edit"></i> Edit', array('class' => 'btn btn-ar btn-block btn-warning'))?>
@@ -24,10 +24,12 @@
                             <th>Email</th>
                             <td><?php echo $user->email ?></td>
                         </tr>
-                        <tr>
-                            <th>Student Id</th>
-                            <td><?php echo $user->student_id ?></td>
-                        </tr>
+                        <?php if ($user->is_student) {?>
+                            <tr>
+                                <th>Student Id</th>
+                                <td><?php echo $user->student_id ?></td>
+                            </tr>
+                        <?php } ?>
                         <tr>
                             <th>Phone Number</th>
                             <td><?php echo $user->phone_number ?></td>
