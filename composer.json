@@ -9,7 +9,6 @@
 		"philo/laravel-blade": "2.*",
 		"cartalyst/sentry": "2.1.*",
 		"jamierumbelow/pigeon": "*",
-		"cviebrock/eloquent-sluggable" : "*",
 		"symfony/var-dumper" : "*"
 	},
 	"require-dev": {
