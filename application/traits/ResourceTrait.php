@@ -37,19 +37,10 @@ trait ResourceTrait {
 		return $rules;
 	}
 
-	private function _set_resource_attributes()
+	protected function _set_resource_attributes()
 	{
 		foreach ($this->resource_attributes() as $attr => $value) {
 			$this->resource->$attr = empty($value) ? $this->resource->$attr : $value;
-		}
-	}
-
-	protected function _resource($id)
-	{
-		try{
-			$this->resource = call_user_func_array(array($this->resource_model, 'findOrFail'), array($id));
-		}catch (Exception $e){
-			show_404();
 		}
 	}
 
@@ -62,6 +53,11 @@ trait ResourceTrait {
 		}
 	}
 
+	protected function _new_resource()
+	{
+		$this->resource = new $this->resource_model;
+	}
+
 	protected function resource_data()
 	{
 		$post = $this->input->post(underscore($this->resource_model));
@@ -72,5 +68,25 @@ trait ResourceTrait {
 			$data = array_merge($post, $files);
 		}
 		return is_null($data) ? array() : $data;
+	}
+	protected function _resource()
+	{
+		$resource = is_null($this->resource_model) ? null : $this->resource_model;
+		if (class_exists($resource))
+		{
+			$id = $this->router->uri->rsegment(3);
+			if ( is_null($id) )
+			{
+				$this->resource = new $resource;
+			}
+			else
+			{
+				try{
+					$this->resource = call_user_func_array(array($this->resource_model, 'findOrFail'), array($id));
+				}catch (Exception $e){
+					show_404();
+				}
+			}
+		}
 	}
 }

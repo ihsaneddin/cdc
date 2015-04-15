@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends Admin_Controller {
 
-	protected $allowed_attributes = array('username', 'email', 'password', 'first_name', 'last_name', 'student_id', 'date_of_birth', 'phone_number');
+	protected $allowed_attributes = array('username', 'email', 'password', 'first_name', 'last_name', 'student_id', 'date_of_birth', 'phone_number', 'description');
 	protected $resource;
 
 	public function __construct()

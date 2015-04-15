@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Profiles extends Base_Controller {
 
-	protected $allowed_attributes = array('username', 'password', 'password_confirmation', 'first_name', 'last_name', 'avatar', 'phone_number');
+	protected $allowed_attributes = array('username', 'password', 'password_confirmation', 'first_name', 'last_name', 'avatar', 'phone_number','description');
 	protected $rules = 'profile';
 	protected $after_update_url = 'profiles/show';
 	private $upload_folder = './public/assets/upload/avatars/';

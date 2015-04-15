@@ -38,7 +38,7 @@ trait AuthenticateTrait{
 	protected function _remember()
 	{
 		if (array_key_exists('remember', $this->input->post())) {
-			if ($this->input->post('remember') == true)	return true;
+			return true;
 		}
 		return false;
 	}

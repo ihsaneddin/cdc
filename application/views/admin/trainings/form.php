@@ -1,45 +1,41 @@
-    <div class="form-group <?php has_error(form_error('title'))?>">
+    <div class="form-group <?php echo has_error_for($training->errors, 'title')?>">
       <?php echo form_label('Name', 'title', array('class' => 'control-label'))?>
       <?php echo form_input(array('name' => 'training[title]', 'id' => 'title', 'class' => 'form-control', 'placeholder' => 'Training name', 'value' => input_value($training->title,'title') ))?>
-      <?php echo form_error('title') ?>
+      <?php echo error_message_for($training->errors, 'title') ?>
     </div>
 
-    <div class="form-group <?php has_error(form_error('banner'))?>">
+    <div class="form-group <?php echo has_error_for($training->errors, 'banner')?>">
       <?php echo form_label('Banner', 'banner', array('class' => 'control-label'))?>
       <?php echo form_upload(array('name' => 'training[banner]', 'id' => 'banner', 'class' => 'form-control', 'placeholder' => '', 'value' => input_value($training->title,'banner') ))?>
-      <?php echo form_error('banner') ?>
+      <?php echo error_message_for($training->errors, 'banner') ?>
     </div>
 
-    <div class="form-group <?php has_error(form_error('start_date'))?>">
+    <div class="form-group <?php echo has_error_for($training->errors, 'start_date')?>">
       <?php echo form_label('Start Date', 'start_date', array('class' => 'control-label'))?>
       <?php echo form_input(array('name' => 'training[start_date]', 'id' => 'start_date', 'class' => 'form-control input-date', 'placeholder' => 'Training start date', 'value' => input_value($training->start_date,'start_date') ))?>
-      <?php echo form_error('start_date') ?>
+      <?php echo error_message_for($training->errors, 'start_date') ?>
     </div>
 
-    <div class="form-group <?php has_error(form_error('end_date'))?>">
+    <div class="form-group <?php echo has_error_for($training->errors, 'end_date')?>">
       <?php echo form_label('End Date', 'start_date', array('class' => 'control-label'))?>
       <?php echo form_input(array('name' => 'training[end_date]', 'id' => 'end_date', 'class' => 'form-control input-date', 'placeholder' => 'Training end date', 'value' => input_value($training->end_date,'end_date') ))?>
-      <?php echo form_error('end_date') ?>
+      <?php echo error_message_for($training->errors, 'end_date') ?>
     </div>
 
-    <div class="form-group <?php has_error(form_error('trainer_ids'))?>">
+    <div class="form-group <?php echo has_error_for($training->errors, 'training_ids')?>">
       <?php echo form_label('Trainers', 'trainer_ids', array('class' => 'control-label'))?>
       <?php echo form_dropdown('training[trainer_ids][]', $options['trainers_select_options'], '', 'id="trainer_ids" class="form-control chosen-input" data-placeholder="Select trainers" multiple=""'); ?>
-      <?php echo form_error('trainer_ids') ?>
+      <?php echo error_message_for($training->errors, 'training_ids') ?>
     </div>
 
-    <div class="form-group <?php has_error(form_error('description'))?>">
+    <div class="form-group <?php echo has_error_for($training->errors, 'description')?>">
       <?php echo form_label('Description', 'description', array('class' => 'control-label'))?>
       <?php echo form_textarea(array('name' => 'training[description]', 'id' => 'description', 'class' => 'form-control', 'placeholder' => 'Training description', 'value' => input_value($training->title,'description') ))?>
-      <?php echo form_error('description') ?>
+      <?php echo error_message_for($training->errors, 'description') ?>
     </div>
-    <?php if(is_null($training->id)){ ?>
-    <div class="form-group <?php has_error(form_error('training_materials'))?>">
-      <?php echo form_label('Training Materials', 'training_materials', array('class' => 'control-label'))?>
-      <?php echo form_upload(array('name' => 'training[training_materials][][file_name]', 'id' => 'training-materials', 'class' => 'form-control', 'multiple' => '' ))?>
-      <?php echo form_error('training_materials') ?>
-    </div>
-    <?php } ?>
+
+    <?php $this->load->section('materials_list', 'admin/trainings/materials_list', array('training' => $training, 'form' => true))?>
+    <?= $this->load->get_section('materials_list')?>
 
     <hr>
     <center>
@@ -47,15 +43,21 @@
       <?php echo anchor('admin/trainings', '<i class="fa fa-remove"></i>Cancel', array('class' => 'btn btn-ar btn-danger'))?>
     </center>
 
-
 <script>
 $(document).ready(function(){
+  var initialBanner = "<?php echo is_null($training->id) ? '' : $training->banner_url ?>",
+      initialPreview;
+  if (initialBanner != '')
+  {
+    initialPreview = ['<img src="'+initialBanner+'" class="file-preview-image">'];
+  }
   var options = {
                   showUpload: false,
                   //allowedFileTypes : ['image'],
                   allowedFileExtensions: ['jpeg', 'jpg', 'png', 'vsdx'],
                   maxFileSize: 1024,
-                  maxFileCount: 1
+                  maxFileCount: 1,
+                  initialPreview: initialPreview
                 }
   initializeFileInput($('#banner'),options);
 
@@ -67,12 +69,18 @@ $(document).ready(function(){
   };
 
   initializeFileInput($('#training-materials'),options);
-
+  var current_trainers = <?php echo array_key_exists('current_trainers_options', $options) ? json_encode($options['current_trainers_options']) : json_encode([]) ;?>;
+  $('#trainer_ids').find('option').each(function(){
+    if ( current_trainers.indexOf($(this).attr('value')) != -1 )
+    {
+      $(this).attr('selected', '');
+    }
+  });
   $('.chosen-input').chosen();
-
   $('.input-date').datepicker({format: 'yyyy/mm/dd'}).on('changeDate', function(ev){
     $(this).datepicker('hide');
   });
+
 });
 
 </script>

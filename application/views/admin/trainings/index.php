@@ -26,6 +26,7 @@
             <th>Name</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Status</th>
             <th>Total Participant</th>
             <th> Action </th>
           </tr>
@@ -48,10 +49,17 @@
                 <?php echo $training['end_date']?>
               </td>
               <td>
-
+                <center>
+                  <?php echo $training['status'] ?>
+                </center>
               </td>
               <td>
-
+                <?php echo $training['total_participants'] ?>
+              </td>
+              <td>
+                <?php echo anchor('admin/trainings/show/'.$training['id'], '<i class="fa fa-eye" title="Detail training"></i>')?>
+                <?php echo anchor('admin/trainings/edit/'.$training['id'], '<i class="fa fa-edit" title="Edit training"></i>')?>
+                <?php echo anchor('admin/trainings/delete/'.$training['id'], '<i class="fa fa-trash" title="Delete training"></i>')?>
               </td>
             </tr>
           <?php }?>

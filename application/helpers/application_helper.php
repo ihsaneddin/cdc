@@ -19,15 +19,40 @@ function image_url($image)
 	echo base_url().'public/assets/img/'.$image;
 }
 
-function avatar_url($avatar)
+function soft_image_url($image)
+{
+	return base_url().'public/assets/img/'.$image;
+}
+
+function avatar_url($avatar=null)
 {
 	$avatar = is_null($avatar) ? 'avatar-default.png' : $avatar;
 	echo base_url().'public/assets/upload/avatars/'.$avatar;
 }
 
+function soft_avatar_url($avatar=null)
+{
+	$avatar = is_null($avatar) ? 'avatar-default.png' : $avatar;
+	return base_url().'public/assets/upload/avatars/'.$avatar;
+}
+function soft_uploaded_file_url($file_path)
+{
+	return base_url().'public/assets/upload/'.$file_path;
+}
+
 function has_error($error)
 {
 	echo $error != '' ? 'has-error' : '';
+}
+
+function has_error_for($errors = array(), $key)
+{
+	return array_key_exists($key, $errors) ? 'has-error' : '';
+}
+
+function error_message_for($errors = array(), $key)
+{
+	return array_key_exists($key, $errors) ? "<span class='help-inline error-validation-message'>".$errors[$key]."</span>" : null;
 }
 
 function flash_message($session)
@@ -87,4 +112,17 @@ function underscore($input) {
     $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
   }
   return implode('_', $ret);
+}
+
+function total_participants($count , $max = 0, $label = 'label-default')
+{
+	if ($count < $max && $count != 0)
+	{
+		$label = 'label-success';
+	}
+	elseif ($count == $max) {
+		dump($max);
+		$label = 'label-danger';
+	}
+	return "<span class='label ".$label."' >".$count."</span>";
 }
