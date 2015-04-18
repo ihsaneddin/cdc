@@ -11,6 +11,7 @@ class Trainings extends Admin_Controller {
 	protected $options = array();
 	protected $rules = 'training';
 	protected $upload_folder = './public/assets/upload/trainings_banners/';
+	protected $list_of_attendances = array();
 
 	public function __construct()
 	{
@@ -18,7 +19,7 @@ class Trainings extends Admin_Controller {
 		$this->resource_model = 'Training' ;
         $this->before_filter[] = array(
         	'action' => '_resource',
-        	'only' => array('edit','update','create_new','create', 'show','delete')
+        	'only' => array('edit','update','create_new','create', 'show','delete','list_of_attendances')
         );
         $this->before_filter[] = array(
         	'action' => '_build_trainers_select',
@@ -72,6 +73,13 @@ class Trainings extends Admin_Controller {
 		$this->resource->delete();
 		$this->session->set_flashdata('Training deleted.');
 		redirect('admin/trainings');
+	}
+
+	public function list_of_attendances($id)
+	{
+		$this->load->helper(array('dompdf', 'file'));
+	    $html = $this->load->view('pdfs/list_of_attendances', array('training' => $this->resource) , true);
+	    pdf_create($html, 'fuck you', true, array('Attachment' => 0));
 	}
 
 	protected function _build_trainers_select()

@@ -89,13 +89,6 @@ jQuery(document).ready(function() { // makes sure the whole site is loaded
         }
     });
 
-    //display input training materials files input
-    $('.add-training-material-file').on('click', function(e){
-        var input = $(this).attr('data-target');
-        $('.'+input).removeClass('hidden');
-        e.preventDefault();
-    })
-
 });
 
 

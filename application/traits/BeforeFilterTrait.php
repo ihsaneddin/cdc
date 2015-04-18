@@ -1,4 +1,5 @@
 <?php
+namespace traits;
 
 trait BeforeFilterTrait {
 
@@ -86,11 +87,12 @@ trait BeforeFilterTrait {
     protected function filter_called_method()
     {
     	try{
-    		$method_reflection = new ReflectionMethod($this->router->fetch_class(), $this->router->fetch_method());
-			if ( !$method_reflection->isPublic()) throw new Exception('Not found');
-    	}catch(Exception $e)
+    		$method_reflection = new \ReflectionMethod($this->router->fetch_class(), $this->router->fetch_method());
+			if ( !$method_reflection->isPublic()) throw new \Exception('Not found');
+    	}catch(\Exception $e)
     	{
-    		show_404();
+    		return $e;
+
     	}
     }
 }

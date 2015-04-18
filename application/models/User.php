@@ -56,4 +56,15 @@ class User extends Eloquent{
 					->select('users.id', 'users.username','first_name', 'last_name', 'groups.name')->where('groups.name', '=', 'trainer');
 	}
 
+	public function user_trainings($trainings= array())
+	{
+		foreach ($this->trainings()->get() as $training) {
+			if ($training->pivot->participate != 0)
+			{
+				array_push($trainings, $training);
+			}
+		}
+		return $trainings;
+	}
+
 }

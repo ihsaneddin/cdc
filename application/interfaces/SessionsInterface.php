@@ -1,6 +1,6 @@
 <?php
 namespace interfaces;
 
-interface AuthenticationInterface{
+interface SessionsInterface{
 	public function _authenticate();
 }

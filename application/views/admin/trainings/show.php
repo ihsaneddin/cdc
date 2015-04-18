@@ -24,7 +24,7 @@
                                 <?php echo anchor('admin/trainings/edit/'.$training->id, '<i class="fa fa-edit"></i>', array('title' => 'Edit training')) ?>
                             </li>
                             <li class="pull-right">
-                                <?= anchor('admin/print_guest_book', '<i class="fa fa-print"></i>', array('title' => 'Print attendance list') )?>
+                                <?= anchor('admin/trainings/list_of_attendances/'.$training->id, '<i class="fa fa-print"></i>', array('title' => 'Print attendance list') )?>
                             </li>
                         </ul>
 

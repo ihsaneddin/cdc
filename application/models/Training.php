@@ -68,7 +68,7 @@ class Training extends Base{
 
  	public function participants()
     {
-    	return $this->users_type('student');
+    	return $this->users_type('student', 'users.first_name');
     }
 
     public function trainers()
@@ -76,10 +76,10 @@ class Training extends Base{
     	return $this->users_type('trainer');
     }
 
-    public function users_type($type)
+    public function users_type($type, $order = 'id')
     {
        return $this->users()->leftJoin('users_groups', 'users.id', '=', 'users_groups.user_id')
-		  	  ->leftJoin('groups', 'groups.id', '=', 'users_groups.group_id')->where('groups.name', '=', $type)->get();
+		  	  ->leftJoin('groups', 'groups.id', '=', 'users_groups.group_id')->where('groups.name', '=', $type)->orderBy($order)->get();
     }
 
     public function current_trainers_select()
@@ -134,6 +134,17 @@ class Training extends Base{
  	public function getBannerUrlAttribute($value)
  	{
  		return soft_uploaded_file_url('trainings_banners/'.$this->banner);
+ 	}
+
+ 	public function list_of_attendances($attendances=array())
+ 	{
+ 		foreach ($this->participants() as $participant) {
+			if ($participant->pivot->participate)
+			{
+				array_push($attendances, $participant);
+			}
+		}
+		return $attendances;
  	}
 
 

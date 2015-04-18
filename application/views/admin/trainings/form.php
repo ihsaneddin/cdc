@@ -69,6 +69,7 @@ $(document).ready(function(){
   };
 
   initializeFileInput($('#training-materials'),options);
+
   var current_trainers = <?php echo array_key_exists('current_trainers_options', $options) ? json_encode($options['current_trainers_options']) : json_encode([]) ;?>;
   $('#trainer_ids').find('option').each(function(){
     if ( current_trainers.indexOf($(this).attr('value')) != -1 )

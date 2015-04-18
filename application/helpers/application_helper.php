@@ -50,6 +50,32 @@ function has_error_for($errors = array(), $key)
 	return array_key_exists($key, $errors) ? 'has-error' : '';
 }
 
+function has_error_for_nested($childs, $key)
+{
+	if ($childs instanceof \Illuminate\Database\Eloquent\Collection)
+	{
+		foreach ($childs as $child) {
+			if( !empty($child->errors) && array_key_exists($key, $child->errors) )
+			{
+				return 'has-error';
+			}
+		}
+	}
+}
+function error_message_for_nested($childs, $key)
+{
+	$message = '' ;
+	if ($childs instanceof \Illuminate\Database\Eloquent\Collection)
+	{
+		foreach ($childs as $child) {
+			if( !empty($child->errors) && array_key_exists($key, $child->errors) )
+			{
+				$message = $message.' '.$child->errors[$key];
+			}
+		}
+	}
+	return '<span class="help-inline error-validation-message">'.$message.'</span>';
+}
 function error_message_for($errors = array(), $key)
 {
 	return array_key_exists($key, $errors) ? "<span class='help-inline error-validation-message'>".$errors[$key]."</span>" : null;
@@ -93,9 +119,9 @@ function tr_number($data = array())
 	}
 }
 
-function empty_table($records, $column=6)
+function empty_table($records, $column=6, $message = 'No record found!')
 {
-	if (empty($records)) return '<tr><td colspan="'.$column.'" class="error-validation-message"><center>No record found!</center></td></tr>';
+	if (empty($records)) return '<tr><td colspan="'.$column.'" class="error-validation-message"><center>'.$message.'</center></td></tr>';
 }
 
 function input_value($object_value ,$attribute)
@@ -121,7 +147,6 @@ function total_participants($count , $max = 0, $label = 'label-default')
 		$label = 'label-success';
 	}
 	elseif ($count == $max) {
-		dump($max);
 		$label = 'label-danger';
 	}
 	return "<span class='label ".$label."' >".$count."</span>";
@@ -130,4 +155,29 @@ function total_participants($count , $max = 0, $label = 'label-default')
 function student_or_trainer($user)
 {
 	return $user->groups->first()->name == 'trainer' ? 'potato' : '' ;
+}
+
+function current_base_url($uri_segments =array())
+{
+	while (count($uri_segments) >= 3)
+	{
+		array_pop($uri_segments);
+	}
+	return site_url().implode('/', $uri_segments);
+}
+
+function participant_confirmation_tr($participate, $class='warning')
+{
+	switch ($participate) {
+		case true:
+			$class = 'success';
+			break;
+		case false:
+			$class = 'danger';
+			break;
+		case null:
+			$class = 'warning';
+			break;
+	}
+	return $class;
 }

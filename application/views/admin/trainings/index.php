@@ -54,7 +54,9 @@
                 </center>
               </td>
               <td>
-                <?php echo $training['total_participants'] ?>
+                <center>
+                  <?php echo $training['total_participants'] ?> / <?= $training['quota']?>
+                </center>
               </td>
               <td>
                 <?php echo anchor('admin/trainings/show/'.$training['id'], '<i class="fa fa-folder-open" title="Detail training"></i>')?>

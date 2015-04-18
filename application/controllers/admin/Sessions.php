@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Sessions extends Authentication_Controller {
+class Sessions extends Sessions_Controller {
 
 	public function __construct()
 	{

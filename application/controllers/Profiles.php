@@ -13,7 +13,6 @@ class Profiles extends Base_Controller {
 	{
 		parent::__construct();
 		$this->resource = $this->current_user;
-		$this->_authenticate();
 		$this->_set_template();
 		$this->before_filter[] = array(
         	'action' => '_set_resource_attributes',

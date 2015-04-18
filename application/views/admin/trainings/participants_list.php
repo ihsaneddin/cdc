@@ -17,7 +17,7 @@
 			</tr>
 		<?php } else{?>
 			<?php foreach ($training->participants() as $index => $participant) {?>
-				<tr class="<?= $participant->pivot->participate ? 'success' : 'danger' ?>">
+				<tr class="<?= participant_confirmation_tr($participant->pivot->participate) ?>">
 					<td>
 						<?=$index+1?>
 					</td>

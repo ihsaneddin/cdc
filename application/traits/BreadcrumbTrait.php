@@ -1,4 +1,5 @@
 <?php
+namespace traits;
 
 trait BreadcrumbTrait {
 
@@ -12,7 +13,7 @@ trait BreadcrumbTrait {
 		switch ($this->router->method) {
 			case 'edit':
 			case 'update':
-				$this->breadcrumb->append( ucwords($this->router->method) , 'admin/'.$this->router->class.'/'.$show.'/'.$this->router->uri->rsegment(3));
+				$this->breadcrumb->append( ucwords($show) , 'admin/'.$this->router->class.'/'.$show.'/'.$this->router->uri->rsegment(3));
 				$this->breadcrumb->append( ucwords($this->router->method) , 'admin/'.$this->router->class.'/'.$this->router->method.'/'.$this->router->uri->rsegment(3));
 				break;
 			default:

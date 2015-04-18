@@ -3,11 +3,10 @@
 require_once('connection.php');
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use traits\NestedAttributesTrait;
 
-class Base extends Eloquent implements SluggableInterface{
-	use NestedAttributesTrait, SluggableTrait;
+class Base extends Eloquent{
+	use NestedAttributesTrait;
 
 	protected $upload_path = array();
  	protected $acceptNestedAttributes = array();
@@ -53,5 +52,11 @@ class Base extends Eloquent implements SluggableInterface{
 	         }
 	         return true;
 	     });
+	}
+
+	public function persisted()
+	{
+		return is_null( call_user_func_array(array(get_class($this), 'find'), array($this->id)) ) ? false : true ;
+
 	}
 }

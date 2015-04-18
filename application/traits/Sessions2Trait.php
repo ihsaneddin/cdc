@@ -3,19 +3,20 @@ namespace traits;
 use \Sentry;
 use \Exception;
 
-trait AuthenticateTrait{
+trait Sessions2Trait{
+	use SentryTrait;
 
 	protected $credential_keys;
 	protected $_login_attribute;
 
 	public function _authenticate()
 	{
-		$this->_already_login();
 		if ($this->_request('post'))
 		{
 			try
 			{
 			   $this->sentry->authenticate($this->_credentials(), $this->_remember());
+			   $this->_set_current_user();
 			   redirect($this->after_login_url);
 			}
 			catch (Exception $e)
@@ -50,13 +51,14 @@ trait AuthenticateTrait{
  		}
 	}
 
-	protected function _already_login()
+	protected function _persisted()
 	{
-		if (!empty($this->current_user))
-		{
-			$this->session->set_flashdata('notice', 'You are already logged in');
-			redirect($this->after_login_url);
-		}
+		if
+	}
+
+	protected function after_login_url()
+	{
+		$this->current_user->groups()->first()->name;
 	}
 
 }

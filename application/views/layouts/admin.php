@@ -99,7 +99,7 @@
         <script src="<?php javascript_url('index.js')?>"></script>
         <script>
             $(function(){
-                var currentUrl = '<?php echo current_url() ?>';
+                var currentUrl = '<?php echo $base_url ?>';
                 $('nav .navbar-nav li a').each(function(idx, elm){
                     var elm = $(elm);
                     if(elm.attr('href') == currentUrl){

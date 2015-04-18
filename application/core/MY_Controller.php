@@ -3,21 +3,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class MY_Controller extends CI_Controller
 {
-	use BeforeFilterTrait;
+	use traits\BeforeFilterTrait;
+
     public function __construct()
     {
     	parent::__construct();
    		$this->filter_called_method();
     }
 
+    protected function _request($type)
+	{
+		return strtolower($this->input->server('REQUEST_METHOD')) === strtolower($type);
+	}
+
 }
 
 class Base_Controller extends MY_Controller {
-	use ResourceTrait, BreadcrumbTrait;
+	use traits\ResourceTrait, traits\BreadcrumbTrait, traits\AuthenticationTrait;
 
 	protected $layout;
-	protected $sentry;
-	protected $current_user;
 	protected $rules;
 
 	public function __construct()
@@ -25,27 +29,14 @@ class Base_Controller extends MY_Controller {
 		parent::__construct();
 		$this->form_validation->set_error_delimiters('<span class="help-inline error-validation-message">', '</span>');
 		$this->load->helper('string');
-		$this->_sentry();
-		$this->_current_user();
+		$this->_initialize_sentry();
+
+		$this->before_filter[] = array(
+            'action' => 'authenticate'
+        );
 		$this->after_filter[] = array(
             'action' => '_load_flash_message'
         );
-	}
-
-	protected function _sentry()
-	{
-		if (!$this->sentry instanceof Sentry) $this->sentry = Sentry::createSentry();
-		return $this->sentry;
-	}
-
-	protected function _current_user()
-	{
-		$this->current_user = $this->sentry->check() ? $this->sentry->getUser() : NULL;
-	}
-
-	protected function _request($type)
-	{
-		return strtolower($this->input->server('REQUEST_METHOD')) === strtolower($type);
 	}
 
 	protected function _set_admin_template()
@@ -53,7 +44,7 @@ class Base_Controller extends MY_Controller {
 		$this->output->set_template($this->layout);
 
 		$this->load->section('header', 'admin/shared/header');
-		$this->load->section('navigation', 'admin/shared/navigation');
+		$this->load->section('navigation', 'admin/shared/navigation', array('base_url' => current_base_url($this->router->uri->segments)));
 		$this->load->section('breadcrumbs', 'admin/shared/breadcrumbs');
 		$this->load->section('footer', 'admin/shared/footer');
 		$this->load->section('sidebar', 'admin/shared/sidebar', array('current_user' => $this->current_user));
@@ -76,6 +67,7 @@ class Base_Controller extends MY_Controller {
 class User_Controller extends Base_Controller
 {
 	protected $layout='default';
+	protected $group='user';
 
 	public function __construct()
 	{
@@ -87,48 +79,14 @@ class User_Controller extends Base_Controller
 class Admin_Controller extends Base_Controller
 {
 	protected $layout = 'admin';
-	protected $login_url = 'admin/login';
-	protected $group;
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->before_filter[] = array(
-            'action' => 'authenticate'
-        );
+		$this->login_url = 'admin/login';
+		$this->group= 'admin';
 		$this->set_breadcrumb();
 		$this->_set_admin_template();
-	}
-
-	protected function authenticate()
-	{
-		if ($this->sentry->check())
-		{
-			$this->_group();
-			if ($this->current_user->inGroup($this->group)) return true;
-		}
-		$this->_login_first();
-	}
-
-	protected function _group()
-	{
-		if (!$this->group instanceof Group)
-		{
-			try
-			{
-			    $this->group = $this->sentry->findGroupByName('admin');
-			}
-			catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
-			{
-			    show_404();
-			}
-		}
-	}
-
-	protected function _login_first()
-	{
-		$this->session->set_flashdata('error', 'You must login first.');
-		redirect($this->login_url);
 	}
 }
 
@@ -144,11 +102,11 @@ class Command extends CI_Controller
 }
 
 
-use interfaces\AuthenticationInterface;
-use traits\AuthenticateTrait;
+use interfaces\SessionsInterface;
+use traits\SessionsTrait;
 
-class Authentication_Controller extends Base_Controller implements AuthenticationInterface{
-	use AuthenticateTrait;
+class Sessions_Controller extends MY_Controller implements SessionsInterface{
+	use SessionsTrait;
 
 	protected $layout='admin_login';
 	protected $after_login_url;
@@ -158,7 +116,6 @@ class Authentication_Controller extends Base_Controller implements Authenticatio
 	public function __construct()
 	{
 		parent::__construct();
-		$this->_init();
 		$this->credential_keys = ['username', 'password'];
 		$this->_login_attribute = 'username';
 		$this->_login_attribute();
@@ -180,43 +137,4 @@ class Authentication_Controller extends Base_Controller implements Authenticatio
 	{
 		$this->output->set_template($this->layout);
 	}
-}
-
-use Philo\Blade\Blade;
-
-class Blade_Controller extends CI_Controller {
-
-	public $layout = "layouts.test";
-	protected $view;
-	protected $blade;
-
-	function __construct()
-	{
-		parent::__construct();
-		$this->_blade();
-		$this->_setup_layout();
-	}
-
-	protected function _blade()
-	{
-		if (!$this->blade instanceof Blade)
-		{
-			$this->views = APPPATH.'views';
-			$this->cache = APPPATH.'cache';
-			$this->blade = new Blade($this->views, $this->cache);
- 		}
-	}
-
-	protected function _setup_layout()
-	{
-		if ( ! is_null($this->layout))
-		{
-			$this->view = $this->blade->view()->make($this->layout);
-		}
-	}
-	protected function _view()
-	{
-		echo $this->view;
-	}
-
 }

@@ -66,6 +66,11 @@ Pigeon::map(function($route){
 		$r->resources('admin/users');
 		$r->resources('admin/trainings');
 	});
+	$route->resources('trainings');
+	$route->route('trainings/(:any)', 'trainings#show', function($l){
+		$prefix = 'training';
+		$l->get('download_material/(:any)', 'training_materials#show');
+	});
 
 });
 
@@ -73,3 +78,5 @@ $route = Pigeon::draw();
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+//dump($route);
+//die();

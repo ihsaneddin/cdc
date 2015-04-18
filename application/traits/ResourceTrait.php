@@ -1,4 +1,5 @@
 <?php
+namespace traits;
 
 trait ResourceTrait {
 
@@ -48,7 +49,7 @@ trait ResourceTrait {
 	{
 		try{
 			$this->resource = call_user_func_array(array($this->resource_model, 'findOrFail'), array($this->uri->rsegment(3)));
-		}catch(Exception $e){
+		}catch(\Exception $e){
 			show_404();
 		}
 	}
@@ -83,7 +84,7 @@ trait ResourceTrait {
 			{
 				try{
 					$this->resource = call_user_func_array(array($this->resource_model, 'findOrFail'), array($id));
-				}catch (Exception $e){
+				}catch (\Exception $e){
 					show_404();
 				}
 			}

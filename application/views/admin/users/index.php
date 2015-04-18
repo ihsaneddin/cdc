@@ -32,9 +32,12 @@
         </thead>
         <tbody>
           <?php echo empty_table($users['data'],6) ?>
+          <?php $i = tr_number($users) ?>
           <?php foreach ($users['data'] as $user) {?>
             <tr>
-              <td></td>
+              <td>
+                <?php echo $i; $i++?>
+              </td>
               <td>
                 <?php echo $user['username'] ?>
               </td>
