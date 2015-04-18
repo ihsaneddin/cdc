@@ -79,9 +79,9 @@ class Admin_Controller extends Base_Controller
 
 	public function __construct()
 	{
-		parent::__construct();
 		$this->after_login_path = 'admin/home';
 		$this->login_path = 'admin/login';
+		parent::__construct();
 		$this->set_breadcrumb();
 		$this->_set_admin_template();
 	}
@@ -116,7 +116,8 @@ class Sessions_Controller extends MY_Controller{
             'action' => '_initializeSentry'
         );
 		$this->before_filter[] = array(
-            'action' => '_is_logged_in'
+            'action' => '_is_logged_in',
+            'except' => array('delete')
         );
 		$this->before_filter[] = array(
             'action' => '_init'

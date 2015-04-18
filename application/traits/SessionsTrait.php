@@ -35,8 +35,6 @@ trait SessionsTrait{
 			}
 			catch (Exception $e)
 			{
-			    dump($e);
-			    die();
 			    $this->session->set_flashdata('error', 'Invalid username or password');
 
 			}
