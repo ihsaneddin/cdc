@@ -32,9 +32,12 @@
         </thead>
         <tbody>
           <?php echo empty_table($users['data'],6) ?>
+          <?php $i = tr_number($users) ?>
           <?php foreach ($users['data'] as $user) {?>
             <tr>
-              <td></td>
+              <td>
+                <?php echo $i; $i++?>
+              </td>
               <td>
                 <?php echo $user['username'] ?>
               </td>
@@ -48,7 +51,7 @@
                 <?php echo $user['full_name'] ?>
               </td>
               <td>
-                <?php echo anchor('admin/users/show/'.$user['id'], '<i class="fa fa-eye" title="Detail user"></i>')?>
+                <?php echo anchor('admin/users/show/'.$user['id'], '<i class="fa fa-folder-open" title="Detail user"></i>')?>
                 <?php echo anchor('admin/users/edit/'.$user['id'], '<i class="fa fa-edit" title="Edit user"></i>')?>
                 <?php echo anchor('admin/users/delete/'.$user['id'], '<i class="fa fa-trash" title="Delete user"></i>')?>
               </td>

@@ -35,9 +35,15 @@
     </div>
 
     <div class="form-group">
+      <?php echo form_label('Address', 'address', array('class' => 'control-label'))?>
+      <?php echo form_input(array('class' => 'form-control input-sm input-date', 'name' => 'address', 'id' => 'address', 'value' => input_value(is_null($user->address) ? '' : $user->address, 'address')  ))?>
+      <?php echo form_error('date_of_birth') ?>
+    </div>
+
+    <div class="form-group">
       <?php echo form_label('Type', 'group', array('class' => 'control-label'))?>
       <br>
-      <?php echo form_checkbox(array('name' => 'group', 'class' => 'form-control switch', 'value' => 'trainer', 'data-on-text' => 'Trainer', 'data-off-text' => 'Student', 'checked' => set_value('group') != '' ? true : false) )?>
+      <?php echo form_checkbox(array('name' => 'group', 'class' => 'form-control switch', 'value' => 'trainer', 'data-on-text' => 'Trainer', 'data-off-text' => 'Student', 'checked' => ''.set_value('group') != '' ? 'potato' : student_or_trainer($user) .'' ) )?>
       <?php echo form_error('group') ?>
     </div>
 

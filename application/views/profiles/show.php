@@ -36,6 +36,10 @@
                             <th>Last Login</th>
                             <td><?php echo nice_date($current_user->updated_at, 'd/m/Y h:m') ?></td>
                         </tr>
+                        <tr>
+                            <th>About You</th>
+                            <td><?php echo $current_user->description ?></td>
+                        </tr>
                     </tbody></table>
                 </div>
             </section>

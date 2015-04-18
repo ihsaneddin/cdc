@@ -5,6 +5,8 @@ class Home extends Admin_Controller {
 
     public function index()
     {
+    	//dump($this);
+    	//die();
     	$this->load->section('content', 'admin/home/index');
     }
 }

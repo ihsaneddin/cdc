@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Profiles extends Base_Controller {
 
-	protected $allowed_attributes = array('username', 'password', 'password_confirmation', 'first_name', 'last_name', 'avatar', 'phone_number');
+	protected $allowed_attributes = array('username', 'password', 'password_confirmation', 'first_name', 'last_name', 'avatar', 'phone_number','description');
 	protected $rules = 'profile';
 	protected $after_update_url = 'profiles/show';
 	private $upload_folder = './public/assets/upload/avatars/';
@@ -13,7 +13,6 @@ class Profiles extends Base_Controller {
 	{
 		parent::__construct();
 		$this->resource = $this->current_user;
-		$this->_authenticate();
 		$this->_set_template();
 		$this->before_filter[] = array(
         	'action' => '_set_resource_attributes',
@@ -48,11 +47,6 @@ class Profiles extends Base_Controller {
 	public function update_password()
 	{
 		$this->_update_profile('profiles/edit_password');
-	}
-
-	protected function _authenticate()
-	{
-		if (!$this->sentry->check()) show_404();
 	}
 
 	protected function _set_template()

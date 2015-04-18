@@ -66,12 +66,30 @@ jQuery(document).ready(function() { // makes sure the whole site is loaded
     $('#status').fadeOut(); // will first fade out the loading animation
     $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
     $('body').delay(350).css({'overflow':'visible'});
-})
 
+    $('.delete-child').on('click', function(e){
+        var td = $(this).parents('td');
+        var name = $(this).attr('data-target');
+        td.find('input[type=hidden]').each(function(){
+            if ($(this).attr('name') == name)
+            {
+                $(this).val(1);
+            }
+        });
+        td.parents('tr').hide();
+        e.preventDefault();
+    });
 
-// full-width-checkbox
-$("[name='full-width-checkbox']").bootstrapSwitch();
+    // full-width-checkbox
+    $("[name='full-width-checkbox']").bootstrapSwitch();
 
+    $('textarea').wysihtml5({
+        toolbar: {
+          fa: true
+        }
+    });
+
+});
 
 
 function initializeFileInput(input,options)

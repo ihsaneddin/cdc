@@ -33,6 +33,7 @@
 
         <link rel="stylesheet" type="text/css" href="<?php asset_url('js/plugins/datepicker/css/bootstrap-datepicker.min.css')?>">
         <link rel="stylesheet" type="text/css" href="<?php asset_url('js/plugins/jquery.chosen/chosen.css')?>">
+        <link href="<?php asset_url('js/plugins/wysiwyg/bootstrap3-wysihtml5.min.css') ?>" rel="stylesheet">
 
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -87,6 +88,7 @@
         <script type="text/javascript" src="<?php javascript_url('plugins/datepicker/js/bootstrap-datepicker.js')?>"></script>
         <script src="<?php javascript_url('plugins/kartik-v-bootstrap-fileinput/js/fileinput.min.js')?>"></script>
         <script src="<?php javascript_url('plugins/jquery.chosen/chosen.jquery.min.js')?>"></script>
+        <script src="<?php javascript_url('plugins/wysiwyg/bootstrap3-wysihtml5.all.min.js')?>"></script>
 
         <!-- Syntaxhighlighter -->
         <script src="<?php javascript_url('syntaxhighlighter/shCore.js')?>"></script>
@@ -97,7 +99,7 @@
         <script src="<?php javascript_url('index.js')?>"></script>
         <script>
             $(function(){
-                var currentUrl = '<?php echo current_url() ?>';
+                var currentUrl = '<?php echo $base_url ?>';
                 $('nav .navbar-nav li a').each(function(idx, elm){
                     var elm = $(elm);
                     if(elm.attr('href') == currentUrl){

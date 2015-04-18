@@ -18,7 +18,7 @@ class TrainingMaterial extends Base{
 						'upload_path' => $this->upload_path['file_name'],
 						'allowed_types' => 'doc|docx|xls|xlsx|ppt|pptx|pdf|zip|rar',
 						'max_size' => 1024*10,
-						'encrypt_name' => true
+						'encrypt_name' => false
 					)
 				);
  		parent::__construct($attributes);
@@ -27,6 +27,10 @@ class TrainingMaterial extends Base{
  	public function training()
  	{
  		return $this->belongsTo('Training');
+ 	}
+ 	public function file_path($field)
+ 	{
+ 		return $this->upload_path[$field].$this->$field;
  	}
 
 }
