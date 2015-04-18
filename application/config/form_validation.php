@@ -76,6 +76,10 @@ $config = array(
 				array(
 					'field' => 'start_date',
 					'label' => 'Start date',
-					'rules' => 'required')
+					'rules' => 'required'),
+				array(
+					'field' => 'quota',
+					'label' => 'Quota',
+					'rules' => 'required|numeric')
 				)
 		);

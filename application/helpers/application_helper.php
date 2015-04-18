@@ -154,7 +154,10 @@ function total_participants($count , $max = 0, $label = 'label-default')
 
 function student_or_trainer($user)
 {
-	return $user->groups->first()->name == 'trainer' ? 'potato' : '' ;
+	if (!$user->groups->isEMpty())
+	{
+		return $user->groups->first()->name == 'trainer' ? 'potato' : '' ;	
+	}
 }
 
 function current_base_url($uri_segments =array())

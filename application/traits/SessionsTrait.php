@@ -4,14 +4,27 @@ use \Sentry;
 use \Exception;
 
 trait SessionsTrait{
-	use SentryTrait;
 
 	protected $credential_keys;
 	protected $_login_attribute;
+	protected $after_login_url;
+	protected $after_logout_url;
+	protected $login_view = 'sessions/create_new';
 
-	public function _authenticate()
+	public function create()
 	{
-		$this->_already_login();
+		$this->_login();
+	}
+
+	public function delete()
+	{
+		$this->sentry->logout();
+		$this->session->set_flashdata('error', 'You are now logged out.');
+		redirect($this->after_logout_url);
+	}
+
+	public function _login()
+	{
 		if ($this->_request('post'))
 		{
 			try
@@ -22,11 +35,13 @@ trait SessionsTrait{
 			}
 			catch (Exception $e)
 			{
+			    dump($e);
+			    die();
 			    $this->session->set_flashdata('error', 'Invalid username or password');
 
 			}
-		}
-		$this->load->section('content', $this->content);
+		}	
+		$this->load->section('content', $this->login_view);
 	}
 
 	protected function _credentials()
@@ -52,11 +67,10 @@ trait SessionsTrait{
  		}
 	}
 
-	protected function _already_login()
+	protected function _is_logged_in()
 	{
-		if (!empty($this->current_user))
+		if ($this->_isLogin())
 		{
-			$this->session->set_flashdata('notice', 'You are already logged in');
 			redirect($this->after_login_url);
 		}
 	}

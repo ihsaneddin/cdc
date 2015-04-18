@@ -79,7 +79,7 @@ class Trainings extends Admin_Controller {
 	{
 		$this->load->helper(array('dompdf', 'file'));
 	    $html = $this->load->view('pdfs/list_of_attendances', array('training' => $this->resource) , true);
-	    pdf_create($html, 'fuck you', true, array('Attachment' => 0));
+	    pdf_create($html, 'List Of Attendances '.$this->resource->title, true, array('Attachment' => 0));
 	}
 
 	protected function _build_trainers_select()

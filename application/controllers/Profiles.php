@@ -49,11 +49,6 @@ class Profiles extends Base_Controller {
 		$this->_update_profile('profiles/edit_password');
 	}
 
-	protected function _authenticate()
-	{
-		if (!$this->sentry->check()) show_404();
-	}
-
 	protected function _set_template()
 	{
 		try{

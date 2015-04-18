@@ -9,6 +9,10 @@ class MY_Controller extends CI_Controller
     {
     	parent::__construct();
    		$this->filter_called_method();
+   		$this->form_validation->set_error_delimiters('<span class="help-inline error-validation-message">', '</span>');
+   				$this->after_filter[] = array(
+            'action' => '_load_flash_message'
+        );
     }
 
     protected function _request($type)
@@ -18,31 +22,32 @@ class MY_Controller extends CI_Controller
 
 }
 
+
+use traits\SentryAuthenticationTrait;
+
 class Base_Controller extends MY_Controller {
-	use traits\ResourceTrait, traits\BreadcrumbTrait, traits\AuthenticationTrait;
+	use traits\ResourceTrait, traits\BreadcrumbTrait, SentryAuthenticationTrait;
 
 	protected $layout;
 	protected $rules;
 
 	public function __construct()
 	{
-		parent::__construct();
-		$this->form_validation->set_error_delimiters('<span class="help-inline error-validation-message">', '</span>');
-		$this->load->helper('string');
-		$this->_initialize_sentry();
-
 		$this->before_filter[] = array(
-            'action' => 'authenticate'
+            'action' => '_initializeSentry'
         );
-		$this->after_filter[] = array(
-            'action' => '_load_flash_message'
+		$this->before_filter[] = array(
+            'action' => '_authenticate'
         );
+        parent::__construct();
+        $this->_initializeSentry();
+        $this->_authenticate();
+        $this->load->helper('string');
 	}
 
 	protected function _set_admin_template()
 	{
 		$this->output->set_template($this->layout);
-
 		$this->load->section('header', 'admin/shared/header');
 		$this->load->section('navigation', 'admin/shared/navigation', array('base_url' => current_base_url($this->router->uri->segments)));
 		$this->load->section('breadcrumbs', 'admin/shared/breadcrumbs');
@@ -64,17 +69,9 @@ class Base_Controller extends MY_Controller {
 	}
 }
 
-class User_Controller extends Base_Controller
-{
-	protected $layout='default';
-	protected $group='user';
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->_set_user_template();
-	}
-}
+
+
 
 class Admin_Controller extends Base_Controller
 {
@@ -83,12 +80,63 @@ class Admin_Controller extends Base_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->login_url = 'admin/login';
-		$this->group= 'admin';
+		$this->after_login_path = 'admin/home';
+		$this->login_path = 'admin/login';
 		$this->set_breadcrumb();
 		$this->_set_admin_template();
 	}
 }
+
+class User_Controller extends Base_Controller
+{
+	protected $layout = 'admin';
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->after_login_path = 'user/home';
+		$this->login_path = 'user/login';
+		$this->set_breadcrumb();
+		$this->_set_admin_template();
+	}
+}
+
+
+
+use traits\SessionsTrait;
+
+class Sessions_Controller extends MY_Controller{
+	use SessionsTrait,SentryAuthenticationTrait;
+
+	protected $layout='admin_login';
+
+	public function __construct()
+	{
+		$this->before_filter[] = array(
+            'action' => '_initializeSentry'
+        );
+		$this->before_filter[] = array(
+            'action' => '_is_logged_in'
+        );
+		$this->before_filter[] = array(
+            'action' => '_init'
+        );
+
+        $this->before_filter[] = array(
+            'action' => '_login_attribute'
+        );
+		$this->credential_keys = ['username', 'password'];
+		$this->_login_attribute = 'username';
+		parent::__construct();
+	}
+
+	protected function _init()
+	{
+		$this->output->set_template($this->layout);
+	}
+}
+
+
 
 class Command extends CI_Controller
 {
@@ -98,43 +146,5 @@ class Command extends CI_Controller
 		$this->input->is_cli_request()
 		or exit ('Execute via command line interface only');
 		$this->load->library('migration');
-	}
-}
-
-
-use interfaces\SessionsInterface;
-use traits\SessionsTrait;
-
-class Sessions_Controller extends MY_Controller implements SessionsInterface{
-	use SessionsTrait;
-
-	protected $layout='admin_login';
-	protected $after_login_url;
-	protected $after_logout_url;
-	protected $content;
-
-	public function __construct()
-	{
-		parent::__construct();
-		$this->credential_keys = ['username', 'password'];
-		$this->_login_attribute = 'username';
-		$this->_login_attribute();
-	}
-
-	public function create()
-	{
-		$this->_authenticate();
-	}
-
-	public function delete()
-	{
-		$this->sentry->logout();
-		$this->session->set_flashdata('error', 'You are now logged out.');
-		redirect($this->after_logout_url);
-	}
-
-	protected function _init()
-	{
-		$this->output->set_template($this->layout);
 	}
 }

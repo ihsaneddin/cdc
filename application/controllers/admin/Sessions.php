@@ -7,7 +7,7 @@ class Sessions extends Sessions_Controller {
 	{
 		$this->after_login_url = 'admin/home';
 		$this->after_logout_url = 'admin/login';
-		$this->content = 'admin/sessions/create_new';
+		$this->login_view = 'admin/sessions/create_new';
 		parent::__construct();
 	}
 }
