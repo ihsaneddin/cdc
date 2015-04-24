@@ -6,20 +6,16 @@ use \Illuminate\Database\Connection;
 
 class Trainings extends Admin_Controller {
 
-	protected $allowed_attributes = array('title', 'banner', 'description', 'start_date', 'end_date', 'trainer_ids');
-	protected $resource;
-	protected $options = array();
 	protected $rules = 'training';
-	protected $upload_folder = './public/assets/upload/trainings_banners/';
 	protected $list_of_attendances = array();
+	protected $resource_model = 'Training' ;
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->resource_model = 'Training' ;
         $this->before_filter[] = array(
         	'action' => '_resource',
-        	'only' => array('edit','update','create_new','create', 'show','delete','list_of_attendances')
+        	'only' => array('list_of_attendances')
         );
         $this->before_filter[] = array(
         	'action' => '_build_trainers_select',
@@ -58,7 +54,7 @@ class Trainings extends Admin_Controller {
 		if ($this->resource->save_a_training($this->resource_data()))
 		{
 			$this->session->set_flashdata('notice', 'Training updated.');
-			redirect('admin/trainings');
+			redirect('admin/trainings/show/'.$this->resource->id);
 		}
 		$this->load->section('content', 'admin/trainings/edit', array('training' => $this->resource, 'options' => $this->options));
 	}
@@ -71,7 +67,7 @@ class Trainings extends Admin_Controller {
 	public function delete($id)
 	{
 		$this->resource->delete();
-		$this->session->set_flashdata('Training deleted.');
+		$this->session->set_flashdata('notice', 'Training deleted.');
 		redirect('admin/trainings');
 	}
 

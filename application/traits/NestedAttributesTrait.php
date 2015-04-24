@@ -118,7 +118,7 @@ trait NestedAttributesTrait{
 			foreach ($rules as $rule) {
 				$this->validator->set_rules($rule['field'], $rule['label'], $rule['rules']);
 			}
-			$this->validator->set_data($this->data);
+			$this->validator->set_data($this->getAttributes());
 			if (!$this->validator->run()){
 				foreach ($this->validator->error_array() as $field => $error) {
 					$this->errors[$field] = $error;
@@ -152,7 +152,7 @@ trait NestedAttributesTrait{
 							is_null($root) ? array_push($this->files, $this->upload->data()) : array_push($root->files, $this->upload->data());
 						}
 						else {
-							if ($required != '') {
+							if ($required == 'required') {
 								if (!is_null($root)){
 									$root->error_state = true;
 								}
@@ -274,6 +274,12 @@ trait NestedAttributesTrait{
 	                unlink($file);
 	            }
 	        }
+	    }
+	    foreach ($this->expected_files as $file_field => $required) {
+	  		if (!$this->persisted())
+	  		{
+	  			$this->$file_field = null;
+	  		}
 	    }
 	}
 

@@ -23,6 +23,9 @@
                     <li>
                         <?php echo anchor('admin/trainings','Trainings') ?>
                     </li>
+                    <li>
+                        <?php echo anchor('admin/articles','Articles') ?>
+                    </li>
                  </ul>
             </div><!-- navbar-collapse -->
         </div>

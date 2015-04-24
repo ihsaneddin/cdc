@@ -36,7 +36,7 @@
 
     <div class="form-group">
       <?php echo form_label('Address', 'address', array('class' => 'control-label'))?>
-      <?php echo form_input(array('class' => 'form-control input-sm input-date', 'name' => 'address', 'id' => 'address', 'value' => input_value(is_null($user->address) ? '' : $user->address, 'address')  ))?>
+      <?php echo form_input(array('class' => 'form-control input-sm', 'name' => 'address', 'id' => 'address', 'value' => input_value(is_null($user->address) ? '' : $user->address, 'address')  ))?>
       <?php echo form_error('date_of_birth') ?>
     </div>
 
@@ -72,17 +72,6 @@ $(document).ready(function(){
     $('input[name=student_id]').parents('div.form-group').hide();
   else
     $('input[name=student_id]').parents('div.form-group').show();
-
-  $(".switch").bootstrapSwitch({
-    onSwitchChange : function()
-    {
-      $('input[name=student_id]').parents('div.form-group').toggle();
-    }
-  });
-
-  $('.input-date').datepicker({format: 'yyyy/mm/dd'}).on('changeDate', function(ev){
-    $(this).datepicker('hide');
-  });
 });
 
 </script>

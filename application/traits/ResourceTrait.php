@@ -4,7 +4,9 @@ namespace traits;
 trait ResourceTrait {
 
 	protected $allowed_attributes = array();
+	protected $is_nested_resource = false;
 	protected $resource_model;
+	protected $resource;
 
 	protected function resource_attributes($data = array())
 	{
@@ -61,21 +63,21 @@ trait ResourceTrait {
 
 	protected function resource_data()
 	{
-		$post = $this->input->post(underscore($this->resource_model));
+		$post = is_null($this->input->post(underscore($this->resource_model))) ? [] : $this->input->post(underscore($this->resource_model));
 		$files = $this->input->file(underscore($this->resource_model));
 		$data = $post;
 		if (!empty( $files ))
 		{
 			$data = array_merge_recursive($post, $files);
 		}
-		return is_null($data) ? array() : $data;
+		return $data;
 	}
 	protected function _resource()
 	{
 		$resource = is_null($this->resource_model) ? null : $this->resource_model;
 		if (class_exists($resource))
 		{
-			$id = $this->router->uri->rsegment(3);
+			$id = $this->router->uri->rsegment($this->is_nested_resource ? 4 : 3);
 			if ( is_null($id) )
 			{
 				$this->resource = new $resource;

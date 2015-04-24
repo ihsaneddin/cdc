@@ -8,3 +8,42 @@
 .breadcrumb-container{
 	margin-top: 10px;
 }
+
+.remove-photo{
+  display: none;
+  position: absolute;
+  top: 2.5%;
+  right: 1.5%;
+}
+.remove-photo a{
+  text-decoration: none;
+}
+.icon-remove-photo{
+  font-size: 1.7em;
+}
+.select-remove-photo{
+  display: none;
+  position: absolute;
+  bottom:7.5%;
+  right: 1.2%;
+}
+.remove-image-buttons{
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+.remove-selected-image-button, .photos-carousel-prototype, #car-photos-list{
+  display: none;
+}
+.bx-wrapper img {
+  height: 150px;
+  max-width: auto;
+  display: inline;
+}
+
+.input-date {
+  background-image: url('../img/icons/calendar-blue.png');
+  background-repeat: no-repeat;
+  background-position: right;
+  height: 30px;
+}

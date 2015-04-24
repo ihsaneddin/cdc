@@ -44,10 +44,22 @@ class Base extends Eloquent{
 	         {
 	         	foreach ($expected_files as $field => $required) {
 	         		$original = $model->getOriginal();
-	         		if ($model->$field == '')
+	         		if ( $required == 'required' && $model->$field == '')
 	         		{
 						return false;
 	         		}
+	         	}
+	         }
+	         return true;
+	     });
+
+	     self::deleting(function($model){
+	     	$expected_files = $model->expected_files;
+	         if (!empty($expected_files))
+	         {
+	         	foreach ($expected_files as $field => $required) {
+         			$file_path = $model->upload_path[$field].$model->$field;
+         			$model->delete_file($file_path);
 	         	}
 	         }
 	         return true;

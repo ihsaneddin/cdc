@@ -8,9 +8,8 @@ class Training extends Base{
  	protected $upload_path = ['banner' => './public/assets/upload/trainings_banners/'];
 
  	protected $fillable = array('title', 'banner', 'description', 'start_date', 'end_date');
- 	protected $acceptNestedAttributes = array('training_materials' => ['file_name']);
+ 	protected $acceptNestedAttributes = array('training_materials' => ['file_name'], 'photos' => ['file_name']);
  	protected $expected_files = array('banner' => 'required');
- 	protected $upload_config = array();
  	protected $appends = ['status', 'total_participants', 'banner_url'];
 
     protected $sluggable = array('from' => 'title', 'to' => 'slug');
@@ -53,6 +52,16 @@ class Training extends Base{
  	public function users()
  	{
  		return $this->belongsToMany('User', 'users_trainings')->withPivot('state', 'participate');
+ 	}
+
+ 	public function photos()
+ 	{
+ 		return $this->morphMany('Photo', 'imageable');
+ 	}
+
+ 	public function comments()
+ 	{
+ 		return $this->hasMany('Comment');
  	}
 
  	public function scopeFilter($res, $search)

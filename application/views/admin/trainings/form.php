@@ -30,7 +30,7 @@
 
     <div class="form-group <?php echo has_error_for($training->errors, 'description')?>">
       <?php echo form_label('Description', 'description', array('class' => 'control-label'))?>
-      <?php echo form_textarea(array('name' => 'training[description]', 'id' => 'description', 'class' => 'form-control', 'placeholder' => 'Training description', 'value' => input_value($training->title,'description') ))?>
+      <?php echo form_textarea(array('name' => 'training[description]', 'id' => 'description', 'class' => 'form-control', 'placeholder' => 'Training description', 'value' => input_value($training->description,'description') ))?>
       <?php echo error_message_for($training->errors, 'description') ?>
     </div>
 

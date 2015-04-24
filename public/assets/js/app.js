@@ -86,7 +86,22 @@ jQuery(document).ready(function() { // makes sure the whole site is loaded
     $('textarea').wysihtml5({
         toolbar: {
           fa: true
+        },
+        "html": true
+    });
+
+    $(".switch").bootstrapSwitch({
+        onSwitchChange : function()
+        {
+          if ($('input[name=student_id]').length)
+          {
+            $('input[name=student_id]').parents('div.form-group').toggle();
+          }
         }
+    });
+
+    $('.input-date').datepicker({format: 'yyyy/mm/dd'}).on('changeDate', function(ev){
+        $(this).datepicker('hide');
     });
 
 });

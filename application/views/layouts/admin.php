@@ -34,6 +34,8 @@
         <link rel="stylesheet" type="text/css" href="<?php asset_url('js/plugins/datepicker/css/bootstrap-datepicker.min.css')?>">
         <link rel="stylesheet" type="text/css" href="<?php asset_url('js/plugins/jquery.chosen/chosen.css')?>">
         <link href="<?php asset_url('js/plugins/wysiwyg/bootstrap3-wysihtml5.min.css') ?>" rel="stylesheet">
+        <link href="<?php asset_url('js/plugins/bootstrap.blueimp/css/blueimp-gallery.min.css') ?>" rel="stylesheet">
+        <link href="<?php asset_url('js/plugins/bootstrap.image-gallery/css/bootstrap-image-gallery.min.css') ?>" rel="stylesheet">
 
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -81,6 +83,7 @@
         <script src="<?php javascript_url('jquery.bxslider.min.js')?>"></script>
         <script src="<?php javascript_url('holder.js')?>"></script>
         <script src="<?php javascript_url('buttons.js')?>"></script>
+        <script src="<?php javascript_url('carousels.js')?>"></script>
         <script src="<?php javascript_url('styleswitcher.js')?>"></script>
         <script src="<?php javascript_url('jquery.mixitup.min.js')?>"></script>
         <script src="<?php javascript_url('circles.min.js')?>"></script>
@@ -89,6 +92,8 @@
         <script src="<?php javascript_url('plugins/kartik-v-bootstrap-fileinput/js/fileinput.min.js')?>"></script>
         <script src="<?php javascript_url('plugins/jquery.chosen/chosen.jquery.min.js')?>"></script>
         <script src="<?php javascript_url('plugins/wysiwyg/bootstrap3-wysihtml5.all.min.js')?>"></script>
+        <script src="<?php javascript_url('plugins/bootstrap.blueimp/js/jquery.blueimp-gallery.min.js')?>"></script>
+        <script src="<?php javascript_url('plugins/bootstrap.image-gallery/js/bootstrap-image-gallery.min.js')?>"></script>
 
         <!-- Syntaxhighlighter -->
         <script src="<?php javascript_url('syntaxhighlighter/shCore.js')?>"></script>

@@ -42,7 +42,7 @@
 
     <div class="form-group <?php echo has_error(form_error('description'))?>">
       <?php echo form_label('About You', 'description', array('class' => 'control-label'))?>
-      <?php echo form_textarea(array('name' => 'description', 'id' => 'description', 'class' => 'form-control', 'placeholder' => 'Training description', 'value' => input_value($current_user->description,'description') ))?>
+      <?php echo form_textarea(array('name' => 'description', 'id' => 'description', 'class' => 'form-control', 'placeholder' => 'About you', 'value' => input_value($current_user->description,'description') ))?>
       <?php echo form_error('description') ?>
     </div>
 

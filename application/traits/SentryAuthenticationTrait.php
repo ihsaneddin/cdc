@@ -15,7 +15,7 @@ trait SentryAuthenticationTrait{
 		if (!$this->sentry instanceof Sentry){
 			$this->sentry = Sentry::createSentry();
 		}
-	} 
+	}
 
 	protected function _authenticate()
 	{
@@ -24,6 +24,7 @@ trait SentryAuthenticationTrait{
 			if (!$this->sentry->hasAccess($this->_route()))
 			{
 				$this->session->set_flashdata('notice', 'You have sufficient access to this page');
+				dump('no access');
 				show_404();
 			}
 			$this->_set_current_user();

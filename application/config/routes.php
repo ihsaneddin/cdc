@@ -63,12 +63,16 @@ Pigeon::map(function($route){
 		$r->post('profile/update', 'profiles#update');
 		$r->get('profile/edit_password', 'profiles#edit_password');
 		$r->post('profile/update_password', 'profiles#update_password');
-		$r->resources('admin/users');
-		$r->resources('admin/trainings');
+		$r->route('trainings/(:any)', 'trainings#show', function($l) use($prefix){
+			$l->post('comments/create', $prefix.'/comments#create');
+		});
 	});
+
+	$route->resources('admin/users');
+	$route->resources('admin/trainings');
+
 	$route->resources('trainings');
 	$route->route('trainings/(:any)', 'trainings#show', function($l){
-		$prefix = 'training';
 		$l->get('download_material/(:any)', 'training_materials#show');
 	});
 

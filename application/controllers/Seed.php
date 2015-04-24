@@ -48,4 +48,13 @@ class Seed extends Command
 
 		}
 	}
+	protected function faculties()
+	{
+
+	}
+
+	protected function majors()
+	{
+
+	}
 }
