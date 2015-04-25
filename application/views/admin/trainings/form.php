@@ -28,6 +28,14 @@
       <?php echo error_message_for($training->errors, 'training_ids') ?>
     </div>
 
+    <div class="form-group <?php echo has_error_for($training->errors, 'quota')?>">
+      <?php echo form_label('Quota', 'quota', array('class' => 'control-label'))?>
+      <?php echo form_input(array('name' => 'training[quota]', 'id' => 'quota', 'class' => 'form-control ', 'placeholder' => '', 'value' => input_value($training->quota,'quota') ))?>
+      <?php echo error_message_for($training->errors, 'quota') ?>
+    </div>
+
+    <div class="clearfix"></div>
+
     <div class="form-group <?php echo has_error_for($training->errors, 'description')?>">
       <?php echo form_label('Description', 'description', array('class' => 'control-label'))?>
       <?php echo form_textarea(array('name' => 'training[description]', 'id' => 'description', 'class' => 'form-control', 'placeholder' => 'Training description', 'value' => input_value($training->description,'description') ))?>

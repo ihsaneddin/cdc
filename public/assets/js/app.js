@@ -95,7 +95,7 @@ jQuery(document).ready(function() { // makes sure the whole site is loaded
         {
           if ($('input[name=student_id]').length)
           {
-            $('input[name=student_id]').parents('div.form-group').toggle();
+            $('div.for-student').toggle();
           }
         }
     });

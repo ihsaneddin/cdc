@@ -12,33 +12,43 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading"><i class="fa fa-user"></i> User Information</div>
                     <table class="table table-striped">
-                        <tbody><tr>
-                            <th>User Name</th>
-                            <td><?php echo $user->username ?></td>
-                        </tr>
-                        <tr>
-                            <th>Fullname</th>
-                            <td><?php echo $user->full_name ?></td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td><?php echo $user->email ?></td>
-                        </tr>
-                        <?php if ($user->is_student) {?>
+                        <tbody>
                             <tr>
-                                <th>Student Id</th>
-                                <td><?php echo $user->student_id ?></td>
+                                <th>User Name</th>
+                                <td><?php echo $user->username ?></td>
                             </tr>
-                        <?php } ?>
-                        <tr>
-                            <th>Phone Number</th>
-                            <td><?php echo $user->phone_number ?></td>
-                        </tr>
-                        <tr>
-                            <th>Last Login</th>
-                            <td><?php echo nice_date($user->updated_at, 'd/m/Y h:m') ?></td>
-                        </tr>
-                    </tbody></table>
+                            <tr>
+                                <th>Fullname</th>
+                                <td><?php echo $user->full_name ?></td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td><?php echo $user->email ?></td>
+                            </tr>
+                            <?php if ($user->is_student) {?>
+                                <tr>
+                                    <th>Student Id</th>
+                                    <td><?php echo $user->student_id ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Major</th>
+                                    <td><?php echo $user->major ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Faculty</th>
+                                    <td><?php echo $user->faculty ?></td>
+                                </tr>
+                            <?php } ?>
+                            <tr>
+                                <th>Phone Number</th>
+                                <td><?php echo $user->phone_number ?></td>
+                            </tr>
+                            <tr>
+                                <th>Last Login</th>
+                                <td><?php echo nice_date($user->updated_at, 'd/m/Y h:m') ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </section>
 

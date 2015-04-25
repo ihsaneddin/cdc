@@ -5,6 +5,7 @@ require_once('connection.php');
 class Faculty extends Base{
 
  	public $table = "faculties";
+ 	protected $fillable = ['name'];
 
 	public function majors()
 	{

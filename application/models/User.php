@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class User extends Eloquent{
 
  	public $table = "users";
- 	protected $appends = ['full_name', 'avatar_url', 'is_student'];
+ 	protected $appends = ['full_name', 'avatar_url', 'is_student', 'major', 'faculty'];
+
+ 	public function major()
+ 	{
+ 		return $this->belongsTo('Major');
+ 	}
 
  	public function groups()
 	{
@@ -65,6 +70,22 @@ class User extends Eloquent{
 			}
 		}
 		return $trainings;
+	}
+
+	public function getMajorAttribute($value)
+	{
+		if (!$this->major()->get()->isEmpty())
+		{
+			return $this->major()->get()->first()->name;
+		}
+	}
+
+	public function getFacultyAttribute($value)
+	{
+		if (!$this->major()->get()->isEmpty())
+		{
+			return $this->major()->get()->first()->faculty()->get()->first()->name;
+		}
 	}
 
 }

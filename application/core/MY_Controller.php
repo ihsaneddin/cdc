@@ -30,7 +30,6 @@ class Base_Controller extends MY_Controller {
 
 	protected $layout;
 	protected $rules;
-	protected $options = array();
 
 	public function __construct()
 	{
@@ -82,13 +81,12 @@ class Admin_Controller extends Base_Controller
 	{
 		$this->after_login_path = 'admin/home';
 		$this->login_path = 'admin/login';
-
 		parent::__construct();
-
 		$this->before_filter[] = array(
         	'action' => '_resource',
         	'only' => array('edit','update','create_new','create', 'show','delete')
         );
+
 		$this->set_breadcrumb();
 		$this->_set_admin_template();
 	}

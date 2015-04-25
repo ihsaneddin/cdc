@@ -9,10 +9,16 @@ class Seed extends Command
 	public function index()
 	{
 		try{
-			$this->groups();
-			$this->admin();
+			$this->run(array('admin','groups','faculties','majors'));
 		}catch(Exception $e){
-			echo 'error happen';
+			echo $e->getMessage();
+		}
+	}
+
+	protected function run($methods=array())
+	{
+		foreach ($methods as $method) {
+			$this->$method;
 		}
 	}
 
@@ -50,11 +56,79 @@ class Seed extends Command
 	}
 	protected function faculties()
 	{
+		$faculties = array(
+			array( 'name' => 'Economic and Business' ),
+			array( 'name' => 'Applied Science' ),
+			array( 'name' => 'Creative Industries' ),
+			array( 'name' => 'Informatics Engineering'),
+			array( 'name' => 'Communication and Business' ),
+			array( 'name' => 'Industrial Engineering'),
+			array( 'name' => 'Electric Engineering')
+		);
+
+		foreach ($faculties as $faculty_arr) {
+			Faculty::firstOrCreate($faculty_arr);
+		}
+
 
 	}
 
 	protected function majors()
 	{
+		$majors = array(
+			'Economic and Business' => array(
+											array('name' => 'S1 Accounting'),
+											array('name' => 'S1 International ICT Business'),
+											array('name' => 'S1 Telecommunication Business Management')
+											),
+			'Applied Science' => array(
+										array('name' => 'D3 Computerized Accounting'),
+										array('name' => 'D3 Informatics Management'),
+										array('name' => 'D3 Marketing Management'),
+										array('name' => 'D3 Informatics Engineering'),
+										array('name' => 'D3 Computer Engineering'),
+										array('name' => 'D3 Telecommunication Engineering')
+									  ),
+			'Creative Industries' => array(
+											array('name' => 'S1 Interior Design'),
+											array('name' => 'S1 Visual Communication Design'),
+											array('name' => 'S1 Design Product'),
+											array('name' => 'S1 Craft Textil and Fashion'),
+											array('name' => 'S1 Fine Arts')
+										  ),
+			'Informatics Engineering' => array(
+												array('name' => 'S1 Informatics Engineering'),
+												array('name' => 'S1 Computing Engineering')
+												),
+			'Communication and Business' => array(
+												array('name' => 'S1 Business Administration'),
+												array('name' => 'S1 Communication Science')
+												),
+			'Industrial Engineering' => array(
+											array('name' => 'S1 Information System'),
+											array('name' => 'S1 Industrial Engineering')
+											),
+			'Electric Engineering' => array(
+											array('name' => 'Electric Engineering'),
+											array('name' => 'Physic Engineering'),
+											array('name' => 'Telecommunication Engineering'),
+											array('name' => 'Computer System')	
+											)
+			);
+		
+		foreach ($majors as $faculty => $majors_arr) {
+			$faculty = Faculty::where('name', '=', $faculty)->first();
+			if ($faculty instanceOf Illuminate\Database\Eloquent\Model )
+			{
+				foreach ($majors_arr as $major) {
+					$major = Major::firstOrNew($major);
+					if (!$major->persisted())
+					{
+						$faculty->majors()->save($major);
+					}		
+				}
+			}
+		}
 
 	}
 }

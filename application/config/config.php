@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-$config['base_url'] = 'http://ci.local/cdc';
+$config['base_url'] = '';
 /*
 |--------------------------------------------------------------------------
 | Index File

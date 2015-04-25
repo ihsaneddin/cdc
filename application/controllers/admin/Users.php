@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users extends Admin_Controller {
 
-	protected $allowed_attributes = array('username', 'email', 'password', 'first_name', 'last_name', 'student_id', 'date_of_birth', 'phone_number', 'description','address');
+	protected $allowed_attributes = array('username', 'email', 'password', 'first_name', 'last_name', 'student_id', 'date_of_birth', 'phone_number', 'description','address', 'major_id');
 	protected $resource;
 
 	public function __construct()
@@ -18,6 +18,11 @@ class Users extends Admin_Controller {
         $this->before_filter[] = array(
         	'action' => '_find_resource',
         	'only' => array('edit','update','show','delete')
+        );
+
+        $this->before_filter[] = array(
+        	'action' => '_build_majors_select',
+        	'only' => array('create_new', 'create', 'edit', 'update')
         );
 	}
 
@@ -35,7 +40,7 @@ class Users extends Admin_Controller {
 	public function create_new()
 	{
 		$this->resource = new User;
-		$this->load->section('content', 'admin/users/create_new', array('user' => $this->resource));
+		$this->load->section('content', 'admin/users/create_new', array('user' => $this->resource, 'options' => $this->options));
 	}
 
 	public function create()
@@ -44,12 +49,12 @@ class Users extends Admin_Controller {
 		{
 			if ($this->_register()) redirect('admin/users');
 		}
-		$this->load->section('content', 'admin/users/create_new', array('user' => new User));
+		$this->load->section('content', 'admin/users/create_new', array('user' => new User, 'options' => $this->options));
 	}
 
 	public function edit($id)
 	{
-		$this->load->section('content', 'admin/users/edit', array('user' => $this->resource));
+		$this->load->section('content', 'admin/users/edit', array('user' => $this->resource, 'options' => $this->options));
 	}
 	public function update($id)
 	{
@@ -61,7 +66,7 @@ class Users extends Admin_Controller {
 				redirect('admin/users');
 			}
 		}
-		$this->load->section('content', 'admin/users/edit', array('user' => $this->resource));
+		$this->load->section('content', 'admin/users/edit', array('user' => $this->resource, 'options' => $this->options));
 	}
 
 	public function delete($id)
@@ -100,6 +105,24 @@ class Users extends Admin_Controller {
 	protected function _rules()
 	{
 		$this->rules = is_null($this->input->post('group')) ? 'user-student' : 'user-trainer';
+	}
+
+	protected function _build_majors_select()
+	{
+		$majors_select = function(){
+			$select = array();
+			$select[0] = '';
+			foreach (Major::build_select_majors()->get() as $major) {
+				$select[$major->id] = $major->name;
+			}
+			return $select;
+		};
+		$this->options['majors_select_options'] = $majors_select();
+		$this->options['current_major_options'] = array_key_exists('major_id', $this->input->post()) ? $this->input->post('major_id') : [] ;
+		if ( empty($this->options['current_major_options']) )
+		{
+			$this->options['current_major_options'] = $this->resource->major_id;
+		}
 	}
 
 }

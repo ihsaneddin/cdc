@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -49,7 +48,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-
 //pigeon routes
 Pigeon::map(function($route){
 	$route->route('admin', 'admin', function($r){
@@ -63,24 +61,19 @@ Pigeon::map(function($route){
 		$r->post('profile/update', 'profiles#update');
 		$r->get('profile/edit_password', 'profiles#edit_password');
 		$r->post('profile/update_password', 'profiles#update_password');
-		$r->route('trainings/(:any)', 'trainings#show', function($l) use($prefix){
-			$l->post('comments/create', $prefix.'/comments#create');
-		});
+		
 	});
-
 	$route->resources('admin/users');
 	$route->resources('admin/trainings');
-
+	$route->resources('admin/articles');
 	$route->resources('trainings');
 	$route->route('trainings/(:any)', 'trainings#show', function($l){
+		$prefix = 'training';
 		$l->get('download_material/(:any)', 'training_materials#show');
 	});
-
 });
-
 $route = Pigeon::draw();
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 //dump($route);
-//die();

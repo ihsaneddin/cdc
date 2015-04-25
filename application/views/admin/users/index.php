@@ -14,7 +14,7 @@
     </div>
 
     <div class="btn-group pull-right">
-        <?php echo anchor('admin/users/create_new', '<i class="fa fa-plus"></i>', array('class' => 'btn', 'title' => 'Create a new user' ))?>
+        <?php echo anchor('admin/users/new', '<i class="fa fa-plus"></i>', array('class' => 'btn', 'title' => 'Create a new user' ))?>
     </div>
 
   </div>
@@ -25,8 +25,8 @@
             <th>#</th>
             <th>Username</th>
             <th>Email</th>
-            <th>Student Id</th>
-            <th>Student Name</th>
+            <th>Student  Id</th>
+            <th>Full Name</th>
             <th> Action </th>
           </tr>
         </thead>

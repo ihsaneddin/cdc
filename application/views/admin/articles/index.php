@@ -14,7 +14,7 @@
     </div>
 
     <div class="btn-group pull-right">
-        <?php echo anchor('admin/articles/create_new', '<i class="fa fa-plus"></i>', array('class' => 'btn', 'title' => 'Create a new training' ))?>
+        <?php echo anchor('admin/articles/new', '<i class="fa fa-plus"></i>', array('class' => 'btn', 'title' => 'Create a new training' ))?>
     </div>
 
   </div>

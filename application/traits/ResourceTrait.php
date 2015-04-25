@@ -7,6 +7,7 @@ trait ResourceTrait {
 	protected $is_nested_resource = false;
 	protected $resource_model;
 	protected $resource;
+	protected $options = array();
 
 	protected function resource_attributes($data = array())
 	{
@@ -78,6 +79,7 @@ trait ResourceTrait {
 		if (class_exists($resource))
 		{
 			$id = $this->router->uri->rsegment($this->is_nested_resource ? 4 : 3);
+
 			if ( is_null($id) )
 			{
 				$this->resource = new $resource;

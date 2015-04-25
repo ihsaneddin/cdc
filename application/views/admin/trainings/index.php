@@ -14,7 +14,7 @@
     </div>
 
     <div class="btn-group pull-right">
-        <?php echo anchor('admin/trainings/create_new', '<i class="fa fa-plus"></i>', array('class' => 'btn', 'title' => 'Create a new training' ))?>
+        <?php echo anchor('admin/trainings/new', '<i class="fa fa-plus"></i>', array('class' => 'btn', 'title' => 'Create a new training' ))?>
     </div>
 
   </div>
@@ -32,7 +32,7 @@
           </tr>
         </thead>
         <tbody>
-          <?php echo empty_table($trainings['data'],6) ?>
+          <?php echo empty_table($trainings['data'],7) ?>
           <?php $i = tr_number($trainings) ?>
           <?php foreach ($trainings['data'] as $training) {?>
             <tr>

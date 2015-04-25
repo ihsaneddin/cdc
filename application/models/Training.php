@@ -7,7 +7,7 @@ class Training extends Base{
  	public $table = "trainings";
  	protected $upload_path = ['banner' => './public/assets/upload/trainings_banners/'];
 
- 	protected $fillable = array('title', 'banner', 'description', 'start_date', 'end_date');
+ 	protected $fillable = array('title', 'banner', 'description', 'start_date', 'end_date', 'quota');
  	protected $acceptNestedAttributes = array('training_materials' => ['file_name'], 'photos' => ['file_name']);
  	protected $expected_files = array('banner' => 'required');
  	protected $appends = ['status', 'total_participants', 'banner_url'];
@@ -28,7 +28,11 @@ class Training extends Base{
 				array(
 					'field' => 'start_date',
 					'label' => 'Start date',
-					'rules' => 'required')
+					'rules' => 'required'),
+								array(
+					'field' => 'quota',
+					'label' => 'Quota',
+					'rules' => 'required|numeric')
 				);
 
  	public function __construct(array $attributes = array())

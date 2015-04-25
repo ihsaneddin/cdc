@@ -47,10 +47,16 @@
       <?php echo form_error('group') ?>
     </div>
 
-    <div class="form-group <?php has_error(form_error('student_id'))?>">
+    <div class="form-group for-student <?php has_error(form_error('student_id'))?>">
       <?php echo form_label('Student Id', 'student_id', array('class' => 'control-label'))?>
       <?php echo form_input(array('class' => 'form-control', 'name' => 'student_id', 'id' => 'student_id', 'value' => input_value($user->student_id,'student_id') ))?>
       <?php echo form_error('student_id') ?>
+    </div>
+
+    <div class="form-group for-student <?php echo has_error(form_error('major_id'))?>">
+      <?php echo form_label('Major', 'major_id', array('class' => 'control-label'))?>
+      <?php echo form_dropdown('major_id', $options['majors_select_options'], empty(set_value('major_id')) ? $user->major_id : set_value('major_id') , 'id="major-id" class="form-control chosen-input" data-placeholder="Select major"'); ?>
+      <?php echo form_error('major_id') ?>
     </div>
 
     <div class="form-group <?php has_error(form_error('phone_number'))?>">
@@ -67,11 +73,11 @@
 
 <script>
 $(document).ready(function(){
-
+  $('.chosen-input').chosen();
   if ($('input[name=group]')[0].checked)
-    $('input[name=student_id]').parents('div.form-group').hide();
+    $('div.for-student').hide();
   else
-    $('input[name=student_id]').parents('div.form-group').show();
+    $('div.for-student').show();
 });
 
 </script>
