@@ -6,6 +6,8 @@ class Comment extends Base{
 
  	public $table = "comments";
  	protected $fillable = array('title', 'content');
+	protected $appends = ['author', 'time'];
+
  	protected $rules = array(
 				array(
 					'field' => 'content',
@@ -41,6 +43,16 @@ class Comment extends Base{
     public function branchs()
     {
     	return $this->hasMany('Comment', 'parent_id');
+    }
+
+    public function getAuthorAttribute($value)
+    {
+    	return $this->user->full_name;
+    }
+
+    public function getTimeAttribute($value)
+    {
+    	return date_format($this->created_at,'d M, Y h:m');
     }
 
 }

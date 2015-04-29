@@ -12,8 +12,18 @@ class Comments extends Admin_Controller {
         parent::__construct();
         $this->before_filter[] = array(
             'action' => '_training',
-            'only' => array('create')
+            'only' => array('create', 'index')
             );
+        $this->before_filter[] = array(
+            'action' => '_only_ajax',
+            'only' => array('index')
+            );
+    }
+
+    public function index($training_id)
+    {
+        $comments = $this->training->comments()->get()->paginate(10);
+
     }
 
     public function create()

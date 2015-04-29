@@ -61,11 +61,17 @@ Pigeon::map(function($route){
 		$r->post('profile/update', 'profiles#update');
 		$r->get('profile/edit_password', 'profiles#edit_password');
 		$r->post('profile/update_password', 'profiles#update_password');
-		
+
 	});
 	$route->resources('admin/users');
 	$route->resources('admin/trainings');
 	$route->resources('admin/articles');
+
+	//user routes
+	$route->get('login', 'sessions#create');
+	$route->post('login', 'sessions#create');
+	$route->post('register', 'register#create');
+	$route->get('home', 'home#index');
 	$route->resources('trainings');
 	$route->route('trainings/(:any)', 'trainings#show', function($l){
 		$prefix = 'training';

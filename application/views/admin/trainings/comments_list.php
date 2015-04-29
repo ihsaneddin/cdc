@@ -20,6 +20,7 @@
                             </div>
                             <div class="pull-right">
                                 <i><?= date_format($comment->created_at,'d M, Y ') ?></i>
+                                &nbsp<a href="#"><i class="glyphicon glyphicon-remove-circle"></i></a>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -30,7 +31,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 ">
-                            <a href="#" class="pull-right">Reply</a>
+                            <a href="#" class="pull-right" data-parent="<?= $comment->id ?>">Reply</a>
                         </div>
                     </div>
                 </div>

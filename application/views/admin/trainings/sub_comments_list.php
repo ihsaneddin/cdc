@@ -21,11 +21,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 ">
-                            <a href="#" class="pull-right">Reply</a>
-                        </div>
-                    </div>
+                    <?php  if ('am I lazy?'  === 'yes') { ?>
+	                    <div class="row">
+	                        <div class="col-md-12 ">
+	                            <a href="#" class="pull-right">Reply</a>
+	                        </div>
+	                    </div>
+                    <?php } ?>
                 </div>
             </div>
 

@@ -38,7 +38,7 @@
 
 <body>
 
-<div class="paper-back-full">
+<div class="paper-back-full" style="min-height: 652px;">
     <div class="login-form-full">
         <div class="fix-box">
 

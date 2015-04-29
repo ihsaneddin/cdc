@@ -20,6 +20,14 @@ class MY_Controller extends CI_Controller
 		return strtolower($this->input->server('REQUEST_METHOD')) === strtolower($type);
 	}
 
+	protected function _only_ajax()
+	{
+		if (!$this->input->is_ajax_request())
+		{
+			show_404();
+		}
+	}
+
 }
 
 
@@ -94,13 +102,13 @@ class Admin_Controller extends Base_Controller
 
 class User_Controller extends Base_Controller
 {
-	protected $layout = 'admin';
+	protected $layout = 'user';
+	protected $after_login_path = 'home';
+	protected $login_path = 'login';
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->after_login_path = 'user/home';
-		$this->login_path = 'user/login';
 		$this->set_breadcrumb();
 		$this->_set_admin_template();
 	}
