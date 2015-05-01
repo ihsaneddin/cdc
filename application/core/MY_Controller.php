@@ -38,18 +38,21 @@ class Base_Controller extends MY_Controller {
 
 	protected $layout;
 	protected $rules;
-
+	protected $skip_authentication = false;
 	public function __construct()
 	{
 		$this->before_filter[] = array(
             'action' => '_initializeSentry'
         );
-		$this->before_filter[] = array(
-            'action' => '_authenticate'
-        );
+		if (!$this->skip_authentication)
+		{
+			$this->before_filter[] = array(
+            	'action' => '_authenticate'
+        	);
+		}
         parent::__construct();
-        $this->_initializeSentry();
-        $this->_authenticate();
+        //$this->_initializeSentry();
+        //$this->_authenticate();
         $this->load->helper('string');
 	}
 
@@ -109,6 +112,10 @@ class User_Controller extends Base_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->before_filter[] = array(
+        	'action' => '_resource',
+        	'only' => array('edit','update','create_new','create', 'show','delete')
+        );
 		$this->set_breadcrumb();
 		$this->_set_admin_template();
 	}

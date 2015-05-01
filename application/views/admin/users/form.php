@@ -55,7 +55,7 @@
 
     <div class="form-group for-student <?php echo has_error(form_error('major_id'))?>">
       <?php echo form_label('Major', 'major_id', array('class' => 'control-label'))?>
-      <?php echo form_dropdown('major_id', $options['majors_select_options'], empty(set_value('major_id')) ? $user->major_id : set_value('major_id') , 'id="major-id" class="form-control chosen-input" data-placeholder="Select major"'); ?>
+      <?php echo form_dropdown('major_id', $options['majors_select_options'], selected_dropdown($user->major_id, 'major_id') , 'id="major-id" class="form-control chosen-input" data-placeholder="Select major"'); ?>
       <?php echo form_error('major_id') ?>
     </div>
 
@@ -73,7 +73,6 @@
 
 <script>
 $(document).ready(function(){
-  $('.chosen-input').chosen();
   if ($('input[name=group]')[0].checked)
     $('div.for-student').hide();
   else

@@ -83,12 +83,15 @@ jQuery(document).ready(function() { // makes sure the whole site is loaded
     // full-width-checkbox
     $("[name='full-width-checkbox']").bootstrapSwitch();
 
-    $('textarea').wysihtml5({
-        toolbar: {
-          fa: true
-        },
-        "html": true
-    });
+    if ($('textarea').length)
+    {
+        $('textarea').wysihtml5({
+            toolbar: {
+              fa: true
+            },
+            "html": true
+        });
+    }
 
     $(".switch").bootstrapSwitch({
         onSwitchChange : function()
@@ -100,9 +103,16 @@ jQuery(document).ready(function() { // makes sure the whole site is loaded
         }
     });
 
-    $('.input-date').datepicker({format: 'yyyy/mm/dd'}).on('changeDate', function(ev){
-        $(this).datepicker('hide');
-    });
+    if ($('.input-date').length){
+        $('.input-date').datepicker({format: 'yyyy/mm/dd'}).on('changeDate', function(ev){
+            $(this).datepicker('hide');
+        });
+    }
+
+    //chosen
+    if ($('.chosen').length){
+        $('.chosen-input').chosen();
+    }
 
 });
 

@@ -4,7 +4,7 @@ require_once('connection.php');
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class User extends Eloquent{
+class User extends Base{
 
  	public $table = "users";
  	protected $appends = ['full_name', 'avatar_url', 'is_student', 'major', 'faculty'];
@@ -86,6 +86,30 @@ class User extends Eloquent{
 		{
 			return $this->major()->get()->first()->faculty()->get()->first()->name;
 		}
+	}
+
+	public function register($sentry, $register_attributes)
+	{
+		try{
+			$registrant = $sentry->createUser($this->register_attributes($register_attributes));
+			$sentry->login($registrant,false);
+		}catch(Exception $e){
+			return false;
+		}
+		return true;
+
+	}
+
+	protected function register_attributes($registrant_attr = array())
+	{
+		$allowed_attr = array('email', 'username', 'password', 'student_id', 'address', 'first_name', 'last_name', 'date_of_birth', 'major_id', 'phone_number');
+		$valid_attr = array();
+		foreach ($allowed_attr as $allowed) {
+			if (array_key_exists($allowed, $registrant_attr))
+			$valid_attr[$allowed] = $registrant_attr[$allowed];
+		}
+		$valid_attr['activated'] = 1;
+		return $valid_attr;
 	}
 
 }

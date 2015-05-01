@@ -156,7 +156,7 @@ function student_or_trainer($user)
 {
 	if (!$user->groups->isEMpty())
 	{
-		return $user->groups->first()->name == 'trainer' ? 'potato' : '' ;	
+		return $user->groups->first()->name == 'trainer' ? 'potato' : '' ;
 	}
 }
 
@@ -183,4 +183,10 @@ function participant_confirmation_tr($participate, $class='warning')
 			break;
 	}
 	return $class;
+}
+
+function selected_dropdown($value, $field)
+{
+	$current_value = set_value($field);
+	return empty($current_value) ? $value : set_value('major_id');
 }

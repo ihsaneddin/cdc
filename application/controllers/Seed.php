@@ -9,7 +9,7 @@ class Seed extends Command
 	public function index()
 	{
 		try{
-			$this->run(array('admin','groups','faculties','majors'));
+			$this->run(array('groups', 'admin', 'faculties','majors'));
 		}catch(Exception $e){
 			echo $e->getMessage();
 		}
@@ -18,7 +18,7 @@ class Seed extends Command
 	protected function run($methods=array())
 	{
 		foreach ($methods as $method) {
-			$this->$method;
+			$this->$method();
 		}
 	}
 
@@ -112,10 +112,10 @@ class Seed extends Command
 											array('name' => 'Electric Engineering'),
 											array('name' => 'Physic Engineering'),
 											array('name' => 'Telecommunication Engineering'),
-											array('name' => 'Computer System')	
+											array('name' => 'Computer System')
 											)
 			);
-		
+
 		foreach ($majors as $faculty => $majors_arr) {
 			$faculty = Faculty::where('name', '=', $faculty)->first();
 			if ($faculty instanceOf Illuminate\Database\Eloquent\Model )
@@ -125,7 +125,7 @@ class Seed extends Command
 					if (!$major->persisted())
 					{
 						$faculty->majors()->save($major);
-					}		
+					}
 				}
 			}
 		}

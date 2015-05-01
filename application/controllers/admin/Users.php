@@ -111,7 +111,7 @@ class Users extends Admin_Controller {
 	{
 		$majors_select = function(){
 			$select = array();
-			$select[0] = '';
+			$select[''] = '';
 			foreach (Major::build_select_majors()->get() as $major) {
 				$select[$major->id] = $major->name;
 			}

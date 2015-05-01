@@ -23,11 +23,14 @@
     <link href="<?php css_url('lightbox.css') ?>" rel="stylesheet" media="screen">
     <link href="<?php css_url('jquery.bxslider.css') ?>" rel="stylesheet">
     <link href="<?php css_url('syntaxhighlighter/shCore.css') ?>" rel="stylesheet" media="screen">
-
     <link href="<?php css_url('style-red2.css') ?>" rel="stylesheet" media="screen" title="default">
     <link href="<?php css_url('width-full.css') ?>" rel="stylesheet" media="screen" title="default">
-
+    <link rel="stylesheet" type="text/css" href="<?php asset_url('js/plugins/jquery.chosen/chosen.css')?>">
     <link href="<?php css_url('buttons.css') ?>" rel="stylesheet" media="screen">
+
+    <link href="<?php css_url('custom.css') ?>" rel="stylesheet" media="screen">
+
+    <script src="<?php javascript_url('jquery.min.js')?>"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -43,7 +46,36 @@
 </div>
 
 <!-- Scripts -->
-<script src="<?php javascript_url('jquery.min.js')?>"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(e){
+
+        $('.chosen-input').chosen();
+        if ($('#user-registration-form').find('div.has-error').length)
+        {
+            $('#user-login-form').hide();
+        }else{
+            $('#user-registration-form').hide();
+        }
+
+        $(document).on('click', '.session-menu', function(e){
+            var row = $($(this).attr('data-parent')),
+                menu = $(this).attr('data-target');
+            if (row.length){
+                row.find('>div').each(function(){
+                    if ($(this).attr('id') == menu){
+                        $(this).show();
+                    }else{
+                        $(this).hide();
+                    }
+                });
+            }
+
+            e.preventDefault();
+        });
+    });
+</script>
+
 <script src="<?php javascript_url('jquery.cookie.js')?>"></script>
 <script src="<?php javascript_url('bootstrap.min.js')?>"></script>
 <script src="<?php javascript_url('bootstrap-switch.min.js')?>"></script>
@@ -55,6 +87,8 @@
 <script src="<?php javascript_url('styleswitcher.js')?>"></script>
 <script src="<?php javascript_url('jquery.mixitup.min.js')?>"></script>
 <script src="<?php javascript_url('circles.min.js')?>"></script>
+<script src="<?php javascript_url('plugins/jquery.chosen/chosen.jquery.min.js')?>"></script>
+<script type="text/javascript" src="<?php javascript_url('plugins/datepicker/js/bootstrap-datepicker.js')?>"></script>
 
 <!-- Syntaxhighlighter -->
 <script src="<?php javascript_url('syntaxhighlighter/shCore.js')?>"></script>

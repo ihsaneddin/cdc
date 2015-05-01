@@ -120,15 +120,20 @@ trait NestedAttributesTrait{
 			}
 			$this->validator->set_data($this->getAttributes());
 			if (!$this->validator->run()){
-				foreach ($this->validator->error_array() as $field => $error) {
-					$this->errors[$field] = $error;
-				}
-				$this->error_state = true;
+				set_error_validation($this->validator->error_array());
 				return false;
 			}
 		}
 		return $this->error_state ? false : true;
 
+	}
+
+	public function set_error_validation($message_array = array())
+	{
+		foreach ($message_array as $field => $error) {
+			$this->errors[$field] = $error;
+		}
+		$this->error_state = true;
 	}
 
 

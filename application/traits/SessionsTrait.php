@@ -10,6 +10,7 @@ trait SessionsTrait{
 	protected $after_login_url;
 	protected $after_logout_url;
 	protected $login_view = 'sessions/create_new';
+	protected $login_admin = true;
 
 	public function create()
 	{
@@ -30,15 +31,20 @@ trait SessionsTrait{
 			try
 			{
 			   $this->sentry->authenticate($this->_credentials(), $this->_remember());
-			   $this->_set_current_user();
-			   redirect($this->after_login_url);
+			   if ($this->login_admin && !$this->_isAdmin() ){
+			   	 $this->sentry->logout();
+			 	 $this->session->set_flashdata('error', 'Invalid username or password');
+			   }else{
+			   	$this->_set_current_user();
+			   	redirect($this->after_login_url);
+			   }
 			}
 			catch (Exception $e)
 			{
 			    $this->session->set_flashdata('error', 'Invalid username or password');
 
 			}
-		}	
+		}
 		$this->load->section('content', $this->login_view);
 	}
 
@@ -71,6 +77,19 @@ trait SessionsTrait{
 		{
 			redirect($this->after_login_url);
 		}
+	}
+
+	protected function _isAdmin()
+	{
+		$admin = $this->sentry->getUser();
+		foreach ($admin->groups as $group) {
+			$permissions = $group->getPermissions();
+			if (array_key_exists('superuser',$permissions))
+			{
+				return $permissions['superuser'] == 1 ? true : false;
+			}
+		}
+		return false;
 	}
 
 }
