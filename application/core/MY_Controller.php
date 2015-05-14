@@ -41,7 +41,8 @@ class Base_Controller extends MY_Controller {
 	protected $skip_authentication = false;
 	public function __construct()
 	{
-		$this->before_filter[] = array(
+		parent::__construct();
+        /*$this->before_filter[] = array(
             'action' => '_initializeSentry'
         );
 		if (!$this->skip_authentication)
@@ -50,9 +51,11 @@ class Base_Controller extends MY_Controller {
             	'action' => '_authenticate'
         	);
 		}
-        parent::__construct();
-        //$this->_initializeSentry();
-        //$this->_authenticate();
+        $this->before_filter[] = array(
+            'action' => '_set_current_user'
+        );*/
+        $this->_initializeSentry();
+        $this->_authenticate();
         $this->load->helper('string');
 	}
 
@@ -105,7 +108,7 @@ class Admin_Controller extends Base_Controller
 
 class User_Controller extends Base_Controller
 {
-	protected $layout = 'user';
+	protected $layout = 'admin';
 	protected $after_login_path = 'home';
 	protected $login_path = 'login';
 

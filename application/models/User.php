@@ -92,6 +92,8 @@ class User extends Base{
 	{
 		try{
 			$registrant = $sentry->createUser($this->register_attributes($register_attributes));
+			$student_group = $sentry->findGroupByName('student');
+			$registrant->addGroup($student_group);
 			$sentry->login($registrant,false);
 		}catch(Exception $e){
 			return false;

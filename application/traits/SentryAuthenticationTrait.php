@@ -21,12 +21,12 @@ trait SentryAuthenticationTrait{
 	{
 		if ($this->_isLogin())
 		{
+			$this->_set_current_user();
 			if (!$this->sentry->hasAccess($this->_route()))
 			{
 				$this->session->set_flashdata('notice', 'You have sufficient access to this page');
 				show_404();
 			}
-			$this->_set_current_user();
 		}else
 		{
 			$this->getLogin();
@@ -40,7 +40,8 @@ trait SentryAuthenticationTrait{
 
 	protected function _route()
 	{
-		return $this->router->directory.$this->router->class.$this->router->method;
+		$directory = empty($this->router->directory) ? '' : $this->router->directory.'.';
+		return $directory.$this->router->class.'.'.$this->router->method;
 	}
 
 	protected function getLogin()

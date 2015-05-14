@@ -5,7 +5,7 @@ class Sessions extends Sessions_Controller {
 
 	protected $layout='user_login';
 	protected $options = array();
-	//protected $login_admin = false;
+	protected $login_admin = false;
 
 	public function __construct()
 	{

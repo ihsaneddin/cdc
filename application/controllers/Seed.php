@@ -13,6 +13,7 @@ class Seed extends Command
 		}catch(Exception $e){
 			echo $e->getMessage();
 		}
+
 	}
 
 	protected function run($methods=array())
@@ -44,11 +45,33 @@ class Seed extends Command
 				)
 			);
 			$this->group['trainer'] = $sentry->createGroup(array(
-				'name' => 'trainer'
+				'name' => 'trainer',
+				'permissions' => array(
+						'home.index' => 1,
+						'trainings.index' => 1,
+						'trainings.show' => 1,
+						'trainings.create_new' => 1,
+						'trainings.create' => 1,
+						'trainings.edit' => 1,
+						'trainings.update' => 1,
+						'profiles.show' => 1,
+						'profiles.edit' => 1,
+						'profiles.edit_password' => 1,
+						'profiles.update_password' => 1
+					)
 				)
 			);
 			$this->group['student'] = $sentry->createGroup(array(
-				'name' => 'student'
+				'name' => 'student',
+				'permissions' => array(
+						'home.index' => 1,
+						'trainings.index' => 1,
+						'trainings.show' => 1,
+						'profiles.show' => 1,
+						'profiles.edit' => 1,
+						'profiles.edit_password' => 1,
+						'profiles.update_password' => 1
+					)
 				)
 			);
 
