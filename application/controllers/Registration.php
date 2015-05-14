@@ -7,10 +7,12 @@ class Registration extends User_Controller {
 	protected $skip_authentication = true;
 	protected $resource_model = 'User';
 	protected $layout = 'user_login';
+	protected $boot_layout = false;
 
 	public function __construct()
 	{
 		parent::__construct();
+		$this->output->set_template($this->layout);
 		$this->before_filter[] = array(
         	'action' => '_set_form_validation_data',
         	'only' => array('create')
@@ -19,9 +21,7 @@ class Registration extends User_Controller {
 	}
 	public function create()
 	{
-		if ($this->_register()){
-
-		}
+		$this->_register();
 	}
 
 	protected function _register()
