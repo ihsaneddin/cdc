@@ -5,6 +5,13 @@ class Seed extends Command
 {
 	protected $user;
 	protected $group = array();
+	protected $sentry;
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->sentry = Sentry::createSentry();
+	}
 
 	public function index()
 	{
@@ -27,55 +34,53 @@ class Seed extends Command
 	{
 		if (User::all()->count() == 0)
 		{
-			$sentry = Sentry::createSentry();
-			$this->user = $sentry->register(array('username' => 'admin', 'email' => 'admin@mail.com', 'password' => 'password', 'activated' => 1));
+			
+			$this->user = $this->sentry->register(array('username' => 'admin', 'email' => 'admin@mail.com', 'password' => 'password', 'activated' => 1));
 			if (array_key_exists('admin', $this->group)) $this->user->addGroup($this->group['admin']);
 		}
 	}
 	protected function groups()
 	{
-		if (Group::all()->count() == 0)
+		try{
+			$this->group['admin'] = $this->sentry->findGroupByName('admin');
+		}		
+		catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
 		{
-			$sentry = Sentry::createSentry();
-			$this->group['admin'] = $sentry->createGroup(array(
+			$this->group['admin'] = $this->sentry->createGroup(array(
 				'name' => 'admin',
 				'permissions' => array(
 					'superuser' => 1
 					)
 				)
 			);
-			$this->group['trainer'] = $sentry->createGroup(array(
+		}
+
+		try{
+			$this->group['trainer'] = $this->sentry->findGroupByName('trainer');
+			$this->group['trainer']->permissions = $this->trainer_permissions();
+			$this->group['trainer']->save();
+		}catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
+		{
+			$this->group['trainer'] = $this->sentry->createGroup(array(
 				'name' => 'trainer',
-				'permissions' => array(
-						'home.index' => 1,
-						'trainings.index' => 1,
-						'trainings.show' => 1,
-						'trainings.create_new' => 1,
-						'trainings.create' => 1,
-						'trainings.edit' => 1,
-						'trainings.update' => 1,
-						'profiles.show' => 1,
-						'profiles.edit' => 1,
-						'profiles.edit_password' => 1,
-						'profiles.update_password' => 1
-					)
+				'permissions' => $this->trainer_permissions() 
 				)
-			);
+			);	
+		}
+
+		try{
+			$this->group['student'] = $this->sentry->findGroupByName('student');
+			$this->group['student']->permissions = $this->student_permissions();
+			$this->group['student']->save();	
+		}catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
+		{
 			$this->group['student'] = $sentry->createGroup(array(
 				'name' => 'student',
-				'permissions' => array(
-						'home.index' => 1,
-						'trainings.index' => 1,
-						'trainings.show' => 1,
-						'profiles.show' => 1,
-						'profiles.edit' => 1,
-						'profiles.edit_password' => 1,
-						'profiles.update_password' => 1
-					)
+				'permissions' => $this->student_permissions()
 				)
 			);
-
 		}
+
 	}
 	protected function faculties()
 	{
@@ -153,5 +158,33 @@ class Seed extends Command
 			}
 		}
 
+	}
+
+	private function trainer_permissions(){
+		return array(
+					'home.index' => 1,
+					'trainings.index' => 1,
+					'trainings.show' => 1,
+					'trainings.create_new' => 1,
+					'trainings.create' => 1,
+					'trainings.edit' => 1,
+					'trainings.update' => 1,
+					'profiles.show' => 1,
+					'profiles.edit' => 1,
+					'profiles.edit_password' => 1,
+					'profiles.update_password' => 1
+				);
+	}
+
+	private function student_permissions(){
+		return array(
+					'home.index' => 1,
+					'trainings.index' => 1,
+					'trainings.show' => 1,
+					'profiles.show' => 1,
+					'profiles.edit' => 1,
+					'profiles.edit_password' => 1,
+					'profiles.update_password' => 1
+				);
 	}
 }

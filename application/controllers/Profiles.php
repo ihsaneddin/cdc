@@ -7,13 +7,16 @@ class Profiles extends Base_Controller {
 	protected $allowed_attributes = array('username', 'password', 'password_confirmation', 'first_name', 'last_name', 'avatar', 'phone_number','description');
 	protected $rules = 'profile';
 	protected $after_update_url = 'profiles/show';
+	protected $layout = 'user';
+	protected $boot_layout = false;
 	private $upload_folder = './public/assets/upload/avatars/';
+	private $admin = false;
 
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_determine_template();
 		$this->resource = $this->current_user;
-		$this->_set_template();
 		$this->before_filter[] = array(
         	'action' => '_set_resource_attributes',
         	'only' => array('update')
@@ -49,18 +52,28 @@ class Profiles extends Base_Controller {
 		$this->_update_profile('profiles/edit_password');
 	}
 
-	protected function _set_template()
+	protected function _determine_template()
 	{
 		try{
 			$admin = $this->sentry->findGroupByName('admin');
 			if ($this->current_user->inGroup($admin)){
 				$this->layout = 'admin';
-				$this->_set_admin_template();
+				$this->admin = true;
 				$this->after_update_url = 'admin/profile';
 			}
-		}catch(Exception $e){
-			$this->_set_user_template();
-		}
+		}catch(Exception $e){}
+		$this->output->set_template($this->layout);
+		$this->_set_template();
+	}
+
+	protected function _set_template()
+	{
+		$admin = $this->admin ? 'admin/' : '' ;
+		$this->load->section('header', $admin.'shared/header', array('route' => $this->_route(), 'current_user' => $this->current_user ));
+		$this->load->section('navigation', $admin.'shared/navigation', array('base_url' => current_base_url($this->router->uri->segments)));
+		$this->load->section('breadcrumbs', $admin.'shared/breadcrumbs');
+		$this->load->section('footer', $admin.'shared/footer');
+		$this->load->section('sidebar', $admin.'shared/sidebar');
 	}
 
 	protected function _update_profile($template = 'profiles/edit')

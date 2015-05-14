@@ -88,7 +88,7 @@ class Users extends Admin_Controller {
 		    		$user->addGroup($group);
 		    	}
 		    	catch(Cartalyst\Sentry\Groups\GroupNotFoundException $e){
-		    		show_403();
+		    		show_404();
 		    	}
 
 		    }

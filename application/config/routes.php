@@ -70,7 +70,13 @@ Pigeon::map(function($route){
 	//user routes
 	$route->get('login', 'sessions#create');
 	$route->post('login', 'sessions#create');
+	$route->get('logout', 'sessions#delete');
 	$route->post('register', 'registration#create');
+	$route->get('profile', 'profiles#show');
+	$route->get('profile/edit', 'profiles#edit');
+	$route->post('profile/update', 'profiles#update');
+	$route->get('profile/edit_password', 'profiles#edit_password');
+	$route->post('profile/update_password', 'profiles#update_password');
 	$route->get('home', 'home#index');
 	$route->resources('trainings');
 	$route->route('trainings/(:any)', 'trainings#show', function($l){

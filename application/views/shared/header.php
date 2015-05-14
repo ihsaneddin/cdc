@@ -6,34 +6,6 @@
         </div>
         <nav class="top-nav">
 
-            <div class="dropdown animated fadeInDown animation-delay-11">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Login</a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-login-box animated fadeInUp">
-                    <form role="form">
-                        <h4>Login Form</h4>
-
-                        <div class="form-group">
-                            <div class="input-group login-input">
-                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input type="text" class="form-control" placeholder="Username">
-                            </div>
-                            <br>
-                            <div class="input-group login-input">
-                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                <input type="password" class="form-control" placeholder="Password">
-                            </div>
-                            <div class="checkbox pull-left">
-                                <label>
-                                    <input type="checkbox"> Remember me
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-ar btn-primary pull-right">Login</button>
-                            <div class="clearfix"></div>
-                        </div>
-                    </form>
-                </div>
-            </div> <!-- dropdown -->
-
             <div class="dropdown animated fadeInDown animation-delay-13">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i></a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-search-box animated fadeInUp">

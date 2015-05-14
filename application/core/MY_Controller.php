@@ -38,7 +38,7 @@ class Base_Controller extends MY_Controller {
 
 	protected $layout;
 	protected $rules;
-	protected $skip_authentication = false;
+	protected $boot_layout = true;
 	public function __construct()
 	{
 		parent::__construct();
@@ -56,25 +56,27 @@ class Base_Controller extends MY_Controller {
         );*/
         $this->_initializeSentry();
         $this->_authenticate();
+        $this->set_breadcrumb();
+		$this->boot_layout();
         $this->load->helper('string');
 	}
 
-	protected function _set_admin_template()
+	protected function boot_layout()
 	{
-		$this->output->set_template($this->layout);
+		if ($this->boot_layout)
+		{
+			$this->output->set_template($this->layout);
+			$this->_set_template();
+		}
+	}
+
+	protected function _set_template()
+	{
 		$this->load->section('header', 'admin/shared/header');
 		$this->load->section('navigation', 'admin/shared/navigation', array('base_url' => current_base_url($this->router->uri->segments)));
 		$this->load->section('breadcrumbs', 'admin/shared/breadcrumbs');
 		$this->load->section('footer', 'admin/shared/footer');
 		$this->load->section('sidebar', 'admin/shared/sidebar', array('current_user' => $this->current_user));
-	}
-
-	protected function _set_user_template()
-	{
-		$this->output->set_template($this->layout);
-		$this->load->section('header', 'shared/header');
-		$this->load->section('navigation', 'shared/navigation');
-		$this->load->section('footer', 'shared/footer');
 	}
 
 	protected function _load_flash_message()
@@ -100,15 +102,12 @@ class Admin_Controller extends Base_Controller
         	'action' => '_resource',
         	'only' => array('edit','update','create_new','create', 'show','delete')
         );
-
-		$this->set_breadcrumb();
-		$this->_set_admin_template();
 	}
 }
 
 class User_Controller extends Base_Controller
 {
-	protected $layout = 'admin';
+	protected $layout = 'user';
 	protected $after_login_path = 'home';
 	protected $login_path = 'login';
 
@@ -119,8 +118,15 @@ class User_Controller extends Base_Controller
         	'action' => '_resource',
         	'only' => array('edit','update','create_new','create', 'show','delete')
         );
-		$this->set_breadcrumb();
-		$this->_set_admin_template();
+	}
+
+	protected function _set_template()
+	{
+		$this->load->section('header', 'shared/header', array('route' => $this->_route(), 'current_user' => $this->current_user ));
+		$this->load->section('navigation', 'shared/navigation', array('base_url' => current_base_url($this->router->uri->segments)));
+		$this->load->section('breadcrumbs', 'shared/breadcrumbs');
+		$this->load->section('footer', 'shared/footer');
+		$this->load->section('sidebar', 'shared/sidebar', array());
 	}
 }
 

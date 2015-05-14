@@ -8,6 +8,7 @@ trait SentryAuthenticationTrait{
 	protected $sentry;
 	protected $login_path;
 	protected $after_login_path = 'admin/home';
+	protected $skip_authentication = false;
 	public $current_user;
 
 	protected function _initializeSentry()
@@ -19,17 +20,20 @@ trait SentryAuthenticationTrait{
 
 	protected function _authenticate()
 	{
-		if ($this->_isLogin())
+		if (!$this->skip_authentication)
 		{
-			$this->_set_current_user();
-			if (!$this->sentry->hasAccess($this->_route()))
+			if ($this->_isLogin())
 			{
-				$this->session->set_flashdata('notice', 'You have sufficient access to this page');
-				show_404();
+				$this->_set_current_user();
+				if (!$this->sentry->hasAccess($this->_route()))
+				{
+					$this->session->set_flashdata('notice', 'You have sufficient access to this page');
+					show_404();
+				}
+			}else
+			{
+				$this->getLogin();
 			}
-		}else
-		{
-			$this->getLogin();
 		}
 	}
 
