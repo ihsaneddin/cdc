@@ -12,6 +12,7 @@ class Migration_Articles extends CI_Migration {
 				'status' => array('type' => 'BOOLEAN', 'default' => false),
 				'image' => array('type' => 'VARCHAR', 'default' => null, 'constraint' => '255'),
 				'content' => array('type' => 'TEXT'),
+				'hits' => array('type' => 'INT', 'default' => 0, 'unsigned' => true),
 				'created_at' => ['type' => 'TIMESTAMP', 'default' => '0000-00-00 00:00:00'],
 				'updated_at' => ['type' => 'TIMESTAMP', 'default' => '0000-00-00 00:00:00'],
 				)

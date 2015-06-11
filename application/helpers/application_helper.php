@@ -190,3 +190,33 @@ function selected_dropdown($value, $field)
 	$current_value = set_value($field);
 	return empty($current_value) ? $value : set_value('major_id');
 }
+
+function render($path, $params = array(), $name=null )
+{
+	$loader =& get_instance()->load;
+	$name = is_null($name) ? $path : $name;
+	$loader->load->section($name, $path, $params);
+    echo $loader->load->get_section($name);
+}
+
+function indonesian_date($date) {
+		$months = array("Januari", "Februari", "Maret",
+						   "April", "Mei", "Juni",
+						   "Juli", "Agustus", "September",
+						   "Oktober", "November", "Desember");
+
+		$tahun = substr($date, 0, 4);
+		$bulan = substr($date, 5, 2);
+		$tgl   = substr($date, 8, 2);
+
+		$result = $tgl . " " . $months[(int)$bulan-1] . " ". $tahun;
+		return($result);
+}
+
+function admin_link($folder)
+{
+	if (!empty($folder))
+	{
+		return $folder.'/';
+	}
+}

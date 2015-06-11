@@ -30,7 +30,7 @@ class Comments extends Admin_Controller {
     {
         if ($this->resource->store($this->resource_data()))
         {
-            redirect('admin/trainings/show/2#comment-'.$this->resource->id);
+            redirect('admin/trainings/show/'.$this->resource->training_id.'#comment-'.$this->resource->id);
         }else{
             $this->load->section('content', 'admin/trainings/show', array('training' => $this->training, 'new_comment' => $this->resource));
         }

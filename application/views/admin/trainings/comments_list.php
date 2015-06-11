@@ -48,7 +48,7 @@
 
 <section class="comment-form">
     <h4 class="section-title">Leave a Comment</h4>
-    <?= form_open('admin/trainings/'.$training->id.'/comments/create/', array('class' => 'form', 'role' => 'form', 'id' => 'form-create-training-comment'))?>
+    <?= form_open('admin/trainings/'.$training->id.'/comments/create', array('class' => 'form', 'role' => 'form', 'id' => 'form-create-training-comment'))?>
         <div class="form-group <?= has_error_for( isset($new_comment) ? $new_comment->errors : [], 'content')  ?>">
             <?php echo form_label('Message', 'content', array('for' => 'message'))?>
             <?php echo form_textarea(array('name' => 'comment[content]', 'id' => 'message', 'class' => 'form-control', 'placeholder' => 'Your comment', 'value' => set_value('content') ))?>

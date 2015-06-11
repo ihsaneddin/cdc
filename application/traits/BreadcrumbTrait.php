@@ -4,10 +4,12 @@ namespace traits;
 trait BreadcrumbTrait {
 
 	protected $folder = 'admin';
+	protected $root = 'home';
 
 	protected function set_breadcrumb()
 	{
-		$this->breadcrumb->append('Home', $this->folder.'/home');
+		$this->breadcrumb->append('Home', is_null($this->folder) ? $this->root : $this->folder.'/'.$this->root);
+		if ($this->router->class != $this->root)
 		$this->breadcrumb->append( ucwords($this->router->class) , $this->folder.'/'.$this->router->class.'/index');
 		$show = 'show';
 		switch ($this->router->method) {

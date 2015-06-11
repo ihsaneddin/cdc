@@ -120,7 +120,7 @@ trait NestedAttributesTrait{
 			}
 			$this->validator->set_data($this->getAttributes());
 			if (!$this->validator->run()){
-				set_error_validation($this->validator->error_array());
+				$this->set_error_validation($this->validator->error_array());
 				return false;
 			}
 		}

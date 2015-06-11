@@ -1,12 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once('connection.php');
+use Illuminate\Database\Eloquent\Model as DB;
 
 class Article extends Base{
 
  	public $table = "articles";
  	protected $upload_path = ['image' => './public/assets/upload/articles_images/'];
- 	protected $fillable = array('title', 'image', 'content', 'user_id');
+ 	protected $fillable = array('title', 'image', 'content', 'user_id','status');
  	protected $expected_files = array('image' => 'not at all');
     protected $sluggable = array('from' => 'title', 'to' => 'slug');
     protected $appends = ['author', 'image_url'];
@@ -63,6 +64,17 @@ class Article extends Base{
  	public function getImageUrlAttribute($value)
  	{
  		return soft_uploaded_file_url('articles_images/'.$this->image);
+ 	}
+
+ 	public function scopeRecents($res, $days=10)
+ 	{
+ 		return $res->orderBy('created_at')->whereRaw('DATE(created_at) <=  '.strtotime(date('Y-m-d')) )
+ 			->whereRaw('DATE(created_at) >=  '.date('Y-m-d', strtotime('-'.$days.' days', strtotime(date('Y-m-d')))));
+ 	}
+
+ 	public function scopePopulars($res, $hit=10)
+ 	{
+ 		return $res->orderBy('hits','desc')->where('hits', '>=', $hit);
  	}
 
 }

@@ -71,4 +71,10 @@ class Base extends Eloquent{
 		return is_null( call_user_func_array(array(get_class($this), 'find'), array($this->id)) ) ? false : true ;
 
 	}
+
+	public static function find_by_slug($slug)
+	{
+		return self::where('slug', '=', $slug)->firstOrFail();
+	}
+
 }

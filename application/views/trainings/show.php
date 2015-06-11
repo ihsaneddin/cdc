@@ -21,10 +21,10 @@
                             <a href="#training-trainers" data-toggle="tab">Trainers</a>
                         </li>
                         <li class="pull-right">
-                            <?php echo anchor('admin/trainings/edit/'.$training->id, '<i class="fa fa-edit"></i>', array('title' => 'Edit training')) ?>
+                            <?php echo anchor('trainings/edit/'.$training->id, '<i class="fa fa-edit"></i>', array('title' => 'Edit training')) ?>
                         </li>
                         <li class="pull-right">
-                            <?= anchor('admin/trainings/list_of_attendances/'.$training->id, '<i class="fa fa-print"></i>', array('title' => 'Print attendance list') )?>
+                            <?= anchor('trainings/list_of_attendances/'.$training->id, '<i class="fa fa-print"></i>', array('title' => 'Print attendance list') )?>
                         </li>
                         <li class="pull-right">
                             <a class='' title="Upload photos" href="#training-photos-upload-modal" data-toggle='modal'>

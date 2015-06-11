@@ -8,6 +8,7 @@ trait ResourceTrait {
 	protected $resource_model;
 	protected $resource;
 	protected $options = array();
+	protected $use_slug = false;
 
 	protected function resource_attributes($data = array())
 	{
@@ -51,7 +52,12 @@ trait ResourceTrait {
 	protected function _find_resource()
 	{
 		try{
-			$this->resource = call_user_func_array(array($this->resource_model, 'findOrFail'), array($this->uri->rsegment(3)));
+			if ($this->use_slug)
+			{
+				$this->resource = call_user_func_array(array($this->resource_model, 'find_by_slug'), array($this->uri->rsegment(3)));
+			}else{
+				$this->resource = call_user_func_array(array($this->resource_model, 'findOrFail'), array($this->uri->rsegment(3)));
+			}
 		}catch(\Exception $e){
 			show_404();
 		}
@@ -87,7 +93,12 @@ trait ResourceTrait {
 			else
 			{
 				try{
-					$this->resource = call_user_func_array(array($this->resource_model, 'findOrFail'), array($id));
+					if ($this->use_slug)
+					{
+						$this->resource = call_user_func_array(array($this->resource_model, 'find_by_slug'), array($this->uri->rsegment(3)));
+					}else{
+						$this->resource = call_user_func_array(array($this->resource_model, 'findOrFail'), array($id));
+					}
 				}catch (\Exception $e){
 					show_404();
 				}

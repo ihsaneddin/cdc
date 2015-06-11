@@ -65,6 +65,9 @@ Pigeon::map(function($route){
 	});
 	$route->resources('admin/users');
 	$route->resources('admin/trainings');
+	$route->route('admin/trainings/(:any)', 'admin/trainings#show', function($r){
+    	$r->post('comments/create', 'admin/comments#create');
+	});
 	$route->resources('admin/articles');
 
 	//user routes

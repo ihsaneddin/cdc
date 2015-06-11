@@ -38,7 +38,13 @@ class Training_materials extends User_Controller {
 
 	protected function _training(){
 		try{
+
 			$this->training = Training::where('id', '=', $this->router->uri->rsegment(3))->first();
+			if ($this->use_slug)
+			{
+				$this->training = Training::find_by_slug($this->router->uri->rsegment(3));
+			}
+
 			$this->resource = $this->training->training_materials()->findOrFail(array($this->router->uri->rsegment(4)))->first();
 			$this->file_path = $this->resource->file_path('file_name');
 		}catch(Exception $e)

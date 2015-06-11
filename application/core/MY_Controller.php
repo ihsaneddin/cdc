@@ -110,6 +110,8 @@ class User_Controller extends Base_Controller
 	protected $layout = 'user';
 	protected $after_login_path = 'home';
 	protected $login_path = 'login';
+	protected $folder = null;
+	protected $use_slug = true;
 
 	public function __construct()
 	{
