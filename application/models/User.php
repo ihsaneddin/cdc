@@ -114,4 +114,19 @@ class User extends Base{
 		return $valid_attr;
 	}
 
+	public function trainings_to_confirm()
+	{
+		return $this->trainings()->wherePivot('participate', NULL)->get();
+	}
+
+	public function valid_trainings()
+	{
+		return $this->trainings()->wherePivot('participate', NULL)->orWherePivot('participate', true)->get();
+	}
+
+	public function applied_to($training)
+	{
+		if (!is_null($this->trainings()->wherePivot('participate', NULL)->first())){return true;}
+	}
+
 }

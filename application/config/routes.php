@@ -86,6 +86,8 @@ Pigeon::map(function($route){
 		$prefix = 'training';
 		$l->get('download_material/(:any)', 'training_materials#show');
 	});
+	$route->get('trainings/(:any)/apply', 'trainings#apply');
+	$route->get('trainings/(:any)/confirm', 'trainings#confirm');
 });
 $route = Pigeon::draw();
 $route['default_controller'] = 'home';

@@ -34,7 +34,7 @@ class Seed extends Command
 	{
 		if (User::all()->count() == 0)
 		{
-			
+
 			$this->user = $this->sentry->register(array('username' => 'admin', 'email' => 'admin@mail.com', 'password' => 'password', 'activated' => 1));
 			if (array_key_exists('admin', $this->group)) $this->user->addGroup($this->group['admin']);
 		}
@@ -43,7 +43,7 @@ class Seed extends Command
 	{
 		try{
 			$this->group['admin'] = $this->sentry->findGroupByName('admin');
-		}		
+		}
 		catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
 		{
 			$this->group['admin'] = $this->sentry->createGroup(array(
@@ -63,15 +63,15 @@ class Seed extends Command
 		{
 			$this->group['trainer'] = $this->sentry->createGroup(array(
 				'name' => 'trainer',
-				'permissions' => $this->trainer_permissions() 
+				'permissions' => $this->trainer_permissions()
 				)
-			);	
+			);
 		}
 
 		try{
 			$this->group['student'] = $this->sentry->findGroupByName('student');
 			$this->group['student']->permissions = $this->student_permissions();
-			$this->group['student']->save();	
+			$this->group['student']->save();
 		}catch (Cartalyst\Sentry\Groups\GroupNotFoundException $e)
 		{
 			$this->group['student'] = $sentry->createGroup(array(
@@ -181,6 +181,8 @@ class Seed extends Command
 					'home.index' => 1,
 					'trainings.index' => 1,
 					'trainings.show' => 1,
+					'trainings.apply' => 1,
+					'trainings.confirm' => 1,
 					'profiles.show' => 1,
 					'profiles.edit' => 1,
 					'profiles.edit_password' => 1,

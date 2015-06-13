@@ -8,7 +8,7 @@
         <div class="panel-heading">Please fill the form below</div>
         <div class="panel-body">
 
-          <?php echo  form_open_multipart('admin/trainings', array('class' => 'form', 'role' => 'form', 'id' => 'form-create-training'))?>
+          <?php echo  form_open_multipart('trainings', array('class' => 'form', 'role' => 'form', 'id' => 'form-create-training'))?>
 
              <?php $this->load->section('training_form', 'admin/trainings/form', array('training' => $training))?>
              <?php echo $this->load->get_section('training_form')?>

@@ -220,3 +220,13 @@ function admin_link($folder)
 		return $folder.'/';
 	}
 }
+
+function carbon_format($time=null, $format='Y-m-d', $zone = "Asia/Jakarta")
+{
+	$timezone = new DateTimeZone($zone);
+	if (is_null($time) || is_null($format))
+	{
+		return Carbon::now($timezone);
+	}
+	return Carbon::createFromFormat($format, $time, $timezone);
+}

@@ -2,6 +2,7 @@
 namespace traits;
 
 use \Sentry;
+use \User;
 
 trait SentryAuthenticationTrait{
 
@@ -56,7 +57,7 @@ trait SentryAuthenticationTrait{
 
 	protected function _set_current_user()
 	{
-		$this->current_user = $this->sentry->getUser();
+		$this->current_user = User::find($this->sentry->getUser()->id);
 	}
 
 }

@@ -69,7 +69,7 @@ class Profiles extends Base_Controller {
 	protected function _set_template()
 	{
 		$admin = $this->admin ? 'admin/' : '' ;
-		$this->load->section('header', $admin.'shared/header', array('route' => $this->_route(), 'current_user' => $this->current_user ));
+		$this->load->section('header', $admin.'shared/header', array('route' => $this->_route(), 'current_user' => $this->current_user, 'sentry' => $this->sentry ));
 		$this->load->section('navigation', $admin.'shared/navigation', array('base_url' => current_base_url($this->router->uri->segments)));
 		$this->load->section('breadcrumbs', $admin.'shared/breadcrumbs');
 		$this->load->section('footer', $admin.'shared/footer');

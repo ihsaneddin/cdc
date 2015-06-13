@@ -9,7 +9,8 @@
 		"philo/laravel-blade": "2.*",
 		"cartalyst/sentry": "2.1.*",
 		"jamierumbelow/pigeon": "*",
-		"symfony/var-dumper" : "*"
+		"symfony/var-dumper" : "*",
+		"nesbot/carbon": "1.14"
 	},
 	"require-dev": {
 		"mikey179/vfsStream": "1.1.*"

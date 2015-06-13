@@ -14,20 +14,20 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <a href="javascript:void(0);" class="sb-icon-navbar sb-toggle-right"><i class="fa fa-bars"></i></a>
                 <ul class="nav navbar-nav">
-                    
-                    <?php if ($current_user->hasAccess('home.index')) { ?>
+
+                    <?php if ($sentry->hasAccess('home.index')) { ?>
                     <li>
                         <?php echo anchor('home','Home') ?>
                     </li>
                     <?php } ?>
 
-                    <?php if ($current_user->hasAccess('trainings.index')) { ?>
+                    <?php if ($sentry->hasAccess('trainings.index')) { ?>
                     <li>
                         <?php echo anchor('trainings','Trainings') ?>
                     </li>
                     <?php } ?>
 
-                    <?php if ($current_user->hasAccess('articles.index')) { ?>
+                    <?php if ($sentry->hasAccess('articles.index')) { ?>
                     <li>
                         <?php echo anchor('articles','Articles') ?>
                     </li>

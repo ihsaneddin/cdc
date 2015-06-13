@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-8 main-content">
         <?php foreach ($trainings['data'] as $training) {
-            render('trainings/training_item', array('training' => $training));
+            render('trainings/training_item', array('training' => $training), 'training_item'.$training['id'] );
         }?>
 
         <?= $pagination ?>
@@ -23,7 +23,6 @@
         {
             var message = $('input[name=search]').val().length ? 'No results for '+$('input[name=search]').val() : 'No data yet' ;
             $('.main-content').append("<div class='alert alert-warning'> <center>"+message+"</center> </div>");
-            console.log('dsadas');
         }
     });
 </script>

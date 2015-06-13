@@ -20,24 +20,37 @@
                         <li>
                             <a href="#training-trainers" data-toggle="tab">Trainers</a>
                         </li>
-                        <li class="pull-right">
-                            <?php echo anchor('trainings/edit/'.$training->id, '<i class="fa fa-edit"></i>', array('title' => 'Edit training')) ?>
-                        </li>
-                        <li class="pull-right">
-                            <?= anchor('trainings/list_of_attendances/'.$training->id, '<i class="fa fa-print"></i>', array('title' => 'Print attendance list') )?>
-                        </li>
-                        <li class="pull-right">
-                            <a class='' title="Upload photos" href="#training-photos-upload-modal" data-toggle='modal'>
-                                <i class="fa fa-file-image-o"></i>
-                            </a>
+                        <?php if ($sentry->hasAccess('trainings.edit')) { ?>
+                            <li class="pull-right">
+                                <?php echo anchor('trainings/edit/'.$training->slug, '<i class="fa fa-edit"></i>', array('title' => 'Edit training')) ?>
+                            </li>
+                        <?php } ?>
+                        <?php if ($sentry->hasAccess('trainings.list_of_attendances')) { ?>
+                            <li class="pull-right">
+                                <?= anchor('trainings/list_of_attendances/'.$training->slug, '<i class="fa fa-print"></i>', array('title' => 'Print attendance list') )?>
+                            </li>
+                        <?php } ?>
+                        <?php if ($sentry->hasAccess('trainings.update')) { ?>
+                            <li class="pull-right">
+                                <a class='' title="Upload photos" href="#training-photos-upload-modal" data-toggle='modal'>
+                                    <i class="fa fa-file-image-o"></i>
+                                </a>
 
-                        </li>
+                            </li>
+                        <?php } ?>
+                        <?php if ($sentry->hasAccess('trainings.apply') &&  $training->applyable($current_user)){?>
+                            <li class="pull-right">
+                                <?= anchor('trainings/apply/'.$training->slug, '<i class="fa fa-check"></i> Apply', array('title' => 'Apply', 'class' => 'btn btn-primary') ) ?>
+                            </li>
+                        <?php } ?>
                     </ul>
 
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane active" id="training-description">
-                            <h3 class="post-title"><a href="javascript:void()" class="transicion"><?= $training->title ?></a></h3>
+                            <h3 class="post-title">
+                                <a href="javascript:void()" class="transicion"><?= $training->title ?></a>
+                            </h3>
                             <div class="row">
                                 <div class="col-md-6">
                                     <img src="<?php echo $training->banner_url ?>" class="img-responsive imageborder" alt="Image">

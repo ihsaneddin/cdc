@@ -17,6 +17,11 @@
         <li>
             <?php echo anchor('profile/edit_password','Change Password') ?>
         </li>
+        <?php if (!$current_user->trainings_to_confirm()->isEmpty()){?>
+            <li>
+                <?php echo anchor('profile#user-trainings-list','Confirm Training <span class="label label-danger">'.$current_user->trainings_to_confirm()->count().'</span>') ?>
+            </li>
+        <?php } ?>
         <li>
             <?php echo anchor('logout','Logout') ?>
         </li>

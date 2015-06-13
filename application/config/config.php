@@ -500,4 +500,5 @@ $config['proxy_ips'] = '';
 //sentry alias
 class_alias('Cartalyst\Sentry\Facades\CI\Sentry', 'Sentry');
 class_alias('Illuminate\Pagination\Paginator', 'Paginator');
+class_alias('Carbon\Carbon', 'Carbon');
 

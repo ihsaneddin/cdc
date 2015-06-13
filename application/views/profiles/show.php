@@ -4,7 +4,7 @@
                 <img class="img-responsive imageborder" alt="avatar" src="<?php avatar_url($current_user->avatar) ?>">
             </section>
             <section>
-                <?php echo anchor('admin/profile/edit', '<i class="fa fa-edit"></i> Edit', array('class' => 'btn btn-ar btn-block btn-warning'))?>
+                <?php echo anchor('profile/edit', '<i class="fa fa-edit"></i> Edit', array('class' => 'btn btn-ar btn-block btn-warning'))?>
             </section>
         </div>
         <div class="col-md-10">
@@ -47,21 +47,25 @@
             <section>
                 <h2 class="section-title">Recent Activity</h2>
                 <div class="list-group">
-                    <span class="list-group-item" href="#">
+                    <span id="user-trainings-list" class="list-group-item" href="#">
                         <h3> Trainings </h3>
                         <ul class="list-group">
+                        <?php if ($current_user->valid_trainings()->isEmpty()){ ?>
                             <li class="list-group-item">
-                                <span class="label label-success pull-right">Completed</span>
-                                Pelatihan Kuda Jingkrak
+                                No trainings yet.
                             </li>
-                            <li class="list-group-item">
-                                <span class="label label-royal pull-right">New</span>
-                                Pelatihan Duduk Yang Benar
-                             </li>
-                            <li class="list-group-item">
-                                <span class="label label-warning pull-right">Upcoming</span>
-                                Pelatihan Baris Berbaris
-                            </li>
+                        <?php }else{ ?>
+                            <?php foreach ($current_user->valid_trainings() as $training) {?>
+                                <li class="list-group-item">
+                                    <?= anchor('trainings/show/'.$training['slug'], $training->title )?> <?= $training->status ?>
+                                    <?php if ($training->confirmable() && $sentry->hasAccess('trainings.confirm')) { ?>
+                                        <span class="pull-right">
+                                            <?= anchor('trainings/confirm/'.$training['slug'], 'Confirm', array('class' => 'btn btn-xs btn-warning') )?>
+                                        </span>
+                                    <?php } ?>
+                                </li>
+                            <?php } ?>
+                        <?php } ?>
                         </ul>
                     </span>
                     <span class="list-group-item">

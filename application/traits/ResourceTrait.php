@@ -1,5 +1,6 @@
 <?php
 namespace traits;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
 trait ResourceTrait {
 
@@ -103,6 +104,13 @@ trait ResourceTrait {
 					show_404();
 				}
 			}
+		}
+	}
+	protected function identifier()
+	{
+		if ($this->resource instanceOf Eloquent)
+		{
+			return $this->use_slug ? $this->resource->slug : $this->resource->id;
 		}
 	}
 }
