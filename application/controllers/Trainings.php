@@ -18,7 +18,7 @@ class Trainings extends User_Controller {
         );
         $this->before_filter[] = array(
         	'action' => '_resource',
-        	'only' => array('apply','list_of_attendances', 'confirm')
+        	'only' => array('apply','list_of_attendances', 'confirm', 'certificate')
         );
         $this->before_filter[] = array(
         	'action' => '_build_trainers_select',
@@ -31,6 +31,14 @@ class Trainings extends User_Controller {
         $this->before_filter[] = array(
         	'action' => '_valid_training_confirmation',
         	'only' => array('confirm')
+        );
+        $this->before_filter[] = array(
+          'action' => '_set_cdc_head_officer',
+          'only' => array('create_new')
+        );
+        $this->before_filter[] = array(
+          'action' => '_certifiable',
+          'only' => array('certificate')
         );
 	}
 

@@ -32,6 +32,7 @@
         <link href="<?php asset_url('js/plugins/kartik-v-bootstrap-fileinput/css/fileinput.css') ?>" rel="stylesheet">
 
         <link rel="stylesheet" type="text/css" href="<?php asset_url('js/plugins/datepicker/css/bootstrap-datepicker.min.css')?>">
+
         <link rel="stylesheet" type="text/css" href="<?php asset_url('js/plugins/jquery.chosen/chosen.css')?>">
         <link href="<?php asset_url('js/plugins/wysiwyg/bootstrap3-wysihtml5.min.css') ?>" rel="stylesheet">
         <link href="<?php asset_url('js/plugins/bootstrap.blueimp/css/blueimp-gallery.min.css') ?>" rel="stylesheet">
@@ -76,6 +77,7 @@
 
         <!-- Scripts -->
         <script src="<?php javascript_url('jquery.cookie.js')?>"></script>
+       <script src="<?php javascript_url('moment.js')?>"></script>
         <script src="<?php javascript_url('bootstrap.min.js')?>"></script>
         <script src="<?php javascript_url('bootstrap-switch.min.js')?>"></script>
         <script src="<?php javascript_url('wow.min.js') ?>"></script>
@@ -87,8 +89,8 @@
         <script src="<?php javascript_url('styleswitcher.js')?>"></script>
         <script src="<?php javascript_url('jquery.mixitup.min.js')?>"></script>
         <script src="<?php javascript_url('circles.min.js')?>"></script>
-        <script src="<?php javascript_url('moment.js')?>"></script>
         <script type="text/javascript" src="<?php javascript_url('plugins/datepicker/js/bootstrap-datepicker.js')?>"></script>
+        \
         <script src="<?php javascript_url('plugins/kartik-v-bootstrap-fileinput/js/fileinput.min.js')?>"></script>
         <script src="<?php javascript_url('plugins/jquery.chosen/chosen.jquery.min.js')?>"></script>
         <script src="<?php javascript_url('plugins/wysiwyg/bootstrap3-wysihtml5.all.min.js')?>"></script>

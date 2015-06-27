@@ -116,7 +116,7 @@
                         <?php $this->load->section('photos_list', 'admin/trainings/photos_list', array('training' => $training))?>
                         <?=  $this->load->get_section('photos_list') ?>
 
-                        <?php $this->load->section('comments_list', 'admin/trainings/comments_list', array('training' => $training, 'new_comment' => isset($new_comment) ? $new_comment : null))?>
+                        <?php $this->load->section('comments_list', 'admin/trainings/comments_list', array('training' => $training,'comment_url' => 'trainings/'.$training->slug.'/comments/create', 'new_comment' => isset($new_comment) ? $new_comment : null))?>
                         <?=  $this->load->get_section('comments_list') ?>
 
 
@@ -128,7 +128,7 @@
 
 
 <div id='modal'>
-    <?php $this->load->section('upload_form_photos_modal', 'admin/trainings/upload_training_photos_form', array('training' => $training))?>
+    <?php $this->load->section('upload_form_photos_modal', 'admin/trainings/upload_training_photos_form', array('training' => $training, 'upload_url' => 'trainings/update/'.$training->slug))?>
     <?=  $this->load->get_section('upload_form_photos_modal') ?>
 </div>
 

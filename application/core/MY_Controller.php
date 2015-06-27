@@ -109,7 +109,7 @@ class Admin_Controller extends Base_Controller
 class User_Controller extends Base_Controller
 {
 	protected $layout = 'user';
-	protected $after_login_path = 'home';
+	protected $after_login_path = 'trainings';
 	protected $login_path = 'login';
 	protected $use_slug = true;
 

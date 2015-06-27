@@ -9,7 +9,7 @@ class Sessions extends Sessions_Controller {
 
 	public function __construct()
 	{
-		$this->after_login_url = 'home';
+		$this->after_login_url = 'trainings';
 		$this->after_logout_url = 'login';
 		$this->login_view = 'sessions/create_new';
 		parent::__construct();

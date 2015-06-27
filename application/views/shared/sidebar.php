@@ -8,6 +8,17 @@
 	</center>
 
     <ul class="slidebar-menu">
+        <?php if ($sentry->hasAccess('trainings.create_new')) { ?>
+            <li>
+                <?php echo anchor('trainings/new','Create Training') ?>
+            </li>
+        <?php } ?>
+            <li>
+            <?php if ($sentry->hasAccess('articles.create_new')) { ?>
+            <li>
+            <?php echo anchor('articles/new','Create Article') ?>
+        </li>
+        <?php } ?>
         <li>
             <?php echo anchor('profile','Profile') ?>
         </li>

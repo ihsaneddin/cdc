@@ -24,6 +24,10 @@ class Trainings extends Admin_Controller {
         	'action' => '_build_trainers_select',
         	'only' => array('edit','update','create_new','create')
         );
+        $this->before_filter[] = array(
+          'action' => '_set_cdc_head_officer',
+          'only' => array('create_new')
+        );
 	}
 }
 

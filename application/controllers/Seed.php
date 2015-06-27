@@ -169,10 +169,17 @@ class Seed extends Command
 					'trainings.create' => 1,
 					'trainings.edit' => 1,
 					'trainings.update' => 1,
+					'articles.index' => 1,
+					'articles.show' => 1,
+					'articles.create_new' => 1,
+					'articles.create' => 1,
+					'articles.edit' => 1,
+					'articles.update' => 1,
 					'profiles.show' => 1,
 					'profiles.edit' => 1,
 					'profiles.edit_password' => 1,
-					'profiles.update_password' => 1
+					'profiles.update_password' => 1,
+					'comments.create' => 1
 				);
 	}
 
@@ -183,10 +190,14 @@ class Seed extends Command
 					'trainings.show' => 1,
 					'trainings.apply' => 1,
 					'trainings.confirm' => 1,
+					'articles.index' => 1,
+					'articles.show' => 1,
 					'profiles.show' => 1,
 					'profiles.edit' => 1,
+					'profiles.update' => 1,
 					'profiles.edit_password' => 1,
-					'profiles.update_password' => 1
+					'profiles.update_password' => 1,
+					'comments.create' => 1
 				);
 	}
 }

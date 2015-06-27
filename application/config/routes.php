@@ -86,11 +86,16 @@ Pigeon::map(function($route){
 		$prefix = 'training';
 		$l->get('download_material/(:any)', 'training_materials#show');
 	});
+	$route->route('trainings/(:any)', 'trainings#show', function($r){
+    	$r->post('comments/create', 'comments#create');
+	});
 	$route->get('trainings/(:any)/apply', 'trainings#apply');
 	$route->get('trainings/(:any)/confirm', 'trainings#confirm');
+	$route->get('trainings/(:any)/certificate/(:any)', 'trainings#certificate');
+	$route->resources('articles');
 });
 $route = Pigeon::draw();
-$route['default_controller'] = 'home';
+$route['default_controller'] = 'trainings';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 //dump($route);

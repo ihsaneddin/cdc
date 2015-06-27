@@ -17,9 +17,21 @@
     </div>
 
     <div class="form-group <?php echo has_error_for($training->errors, 'end_date')?>">
-      <?php echo form_label('End Date', 'start_date', array('class' => 'control-label'))?>
+      <?php echo form_label('End Date', 'end_date', array('class' => 'control-label'))?>
       <?php echo form_input(array('name' => 'training[end_date]', 'id' => 'end_date', 'class' => 'form-control input-date', 'placeholder' => 'Training end date', 'value' => input_value($training->end_date,'end_date') ))?>
       <?php echo error_message_for($training->errors, 'end_date') ?>
+    </div>
+
+    <div class="form-group <?php echo has_error_for($training->errors, 'start_hour')?>">
+      <?php echo form_label('Start Hour', 'start_hour', array('class' => 'control-label'))?>
+      <?php echo form_input(array('name' => 'training[start_hour]', 'id' => 'start_hour', 'class' => 'form-control input-time', 'placeholder' => 'Start hour 00:00', 'value' => input_value($training->start_hour,'start_hour') ))?>
+      <?php echo error_message_for($training->errors, 'start_hour') ?>
+    </div>
+
+    <div class="form-group <?php echo has_error_for($training->errors, 'end_hour')?>">
+      <?php echo form_label('End Hour', 'end_hour', array('class' => 'control-label'))?>
+      <?php echo form_input(array('name' => 'training[end_hour]', 'id' => 'end_hour', 'class' => 'form-control input-time', 'placeholder' => 'End hour 00:00', 'value' => input_value($training->end_hour,'end_hour') ))?>
+      <?php echo error_message_for($training->errors, 'end_hour') ?>
     </div>
 
     <div class="form-group <?php echo has_error_for($training->errors, 'training_ids')?>">
@@ -32,6 +44,12 @@
       <?php echo form_label('Quota', 'quota', array('class' => 'control-label'))?>
       <?php echo form_input(array('name' => 'training[quota]', 'id' => 'quota', 'class' => 'form-control ', 'placeholder' => '', 'value' => input_value($training->quota,'quota') ))?>
       <?php echo error_message_for($training->errors, 'quota') ?>
+    </div>
+
+    <div class="form-group <?php echo has_error_for($training->errors, 'cdc_head_officer')?>">
+      <?php echo form_label('CDC Head Officer', 'cdc_head_officer', array('class' => 'control-label'))?>
+      <?php echo form_input(array('name' => 'training[cdc_head_officer]', 'id' => 'cdc_head_officer', 'class' => 'form-control ', 'placeholder' => '', 'value' => input_value($training->cdc_head_officer,'cdc_head_officer') ))?>
+      <?php echo error_message_for($training->errors, 'cdc_head_officer') ?>
     </div>
 
     <div class="clearfix"></div>
@@ -51,8 +69,15 @@
       <?php echo anchor('admin/trainings', '<i class="fa fa-remove"></i>Cancel', array('class' => 'btn btn-ar btn-danger'))?>
     </center>
 
+
+
 <script>
 $(document).ready(function(){
+
+  $(function () {
+    $('.time').datetimepicker();
+  });
+
   var initialBanner = "<?php echo is_null($training->id) ? '' : $training->banner_url ?>",
       initialPreview;
   if (initialBanner != '')

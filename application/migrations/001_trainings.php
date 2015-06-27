@@ -13,7 +13,10 @@ class Migration_Trainings extends CI_Migration {
 				'description' => array('type' => 'TEXT'),
 				'start_date' => array('type' => 'DATE', 'null' => false),
 				'end_date' => array('type' => 'DATE', 'null'=> false),
+				'start_hour' => array('type' => 'TIME', 'null' => false),
+				'end_hour' => array('type' => 'TIME', 'null' => false),
 				'quota' => array('type' => 'INT', 'unsigned' => true),
+				'cdc_head_officer' => array('type' => 'VARCHAR', 'constraint' => '100'),
 				'created_at' => ['type' => 'TIMESTAMP', 'default' => '0000-00-00 00:00:00'],
 				'updated_at' => ['type' => 'TIMESTAMP', 'default' => '0000-00-00 00:00:00'],
 				)

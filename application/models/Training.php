@@ -7,7 +7,7 @@ class Training extends Base{
  	public $table = "trainings";
  	protected $upload_path = ['banner' => './public/assets/upload/trainings_banners/'];
 
- 	protected $fillable = array('title', 'banner', 'description', 'start_date', 'end_date', 'quota');
+ 	protected $fillable = array('title', 'banner', 'description', 'start_date', 'end_date', 'start_hour', 'end_hour', 'quota');
  	protected $acceptNestedAttributes = array('training_materials' => ['file_name'], 'photos' => ['file_name']);
  	protected $expected_files = array('banner' => 'required');
  	protected $appends = ['status', 'total_participants', 'banner_url', 'valid_training_to_apply', 'quota_status'];
@@ -29,11 +29,26 @@ class Training extends Base{
 					'field' => 'start_date',
 					'label' => 'Start date',
 					'rules' => 'required'),
-								array(
+        array(
+          'field' => 'start_hour',
+          'label' => 'Start hour',
+          'rules' => 'required|time24'
+          ),
+        array(
+          'field' => 'end_hour',
+          'label' => "End hour",
+          'rules' => 'required|time24|time_greater_than[start_hour]'
+          ),
+				array(
 					'field' => 'quota',
 					'label' => 'Quota',
-					'rules' => 'required|numeric')
-				);
+					'rules' => 'required|numeric'
+          ),
+        array(
+          'field' => 'cdc_head_officer',
+          'label' => 'CDC Head Officer',
+          'rules' => 'required')
+          );
 
  	public function __construct(array $attributes = array())
  	{
@@ -79,7 +94,7 @@ class Training extends Base{
 		return $res;
 	}
 
- 	public function participants()
+ 	  public function participants()
     {
     	return $this->users_type('student', 'users.first_name');
     }
@@ -92,7 +107,18 @@ class Training extends Base{
     public function users_type($type, $order = 'id')
     {
        return $this->users()->leftJoin('users_groups', 'users.id', '=', 'users_groups.user_id')
-		  	  ->leftJoin('groups', 'groups.id', '=', 'users_groups.group_id')->where('groups.name', '=', $type)->orderBy($order)->get();
+		  	  ->leftJoin('groups', 'groups.id', '=', 'users_groups.group_id')->where('groups.name', '=', $type)
+          ->orderBy($order)->get();
+    }
+
+    public function confirmed_participants()
+    {
+      return $this->users()->wherePivot('participate', true)->get();
+    }
+
+    public function confirmed_participant($user)
+    {
+      return !$this->users()->where('users.id', $user->id)->wherePivot('participate', true)->get()->isEmpty();
     }
 
     public function current_trainers_select()
@@ -118,9 +144,9 @@ class Training extends Base{
 
  	public function getStatusAttribute($value)
  	{
- 		$today = strtotime(date("Y-m-d"));
- 		$start = strtotime($this->start_date);
- 		$end = strtotime($this->end_date);
+ 		$today = carbon_format();
+ 		$start = carbon_format($this->start_date);
+ 		$end = carbon_format($this->end_date);
  		$label = 'label-success';
  		if ($today < $start)
  		{
@@ -137,6 +163,24 @@ class Training extends Base{
  		return "<span class='label ".$label."'>".$value."</span>";
 
  	}
+
+  public function status()
+  {
+    $today = carbon_format();
+    $start = carbon_format($this->start_date);
+    $end = carbon_format($this->end_date);
+    if ($today < $start)
+    {
+      $value = 'Up coming';
+    }
+    elseif ($today >= $start && $today <= $end) {
+      $value = 'On going';
+    }
+    else{
+      $value = 'Completed';
+    }
+    return $value;
+  }
 
  	public function getTotalParticipantsAttribute($value)
  	{
@@ -242,5 +286,15 @@ class Training extends Base{
  		return true;
  	}
 
+  public function certifiable($user=null)
+  {
+    if (is_null($user))
+    {
+      return true;
+      if ($this->status == 'Completed') {return true;}
+    }else{
+      return $this->confirmed_participant($user);
+    }
+  }
 
 }

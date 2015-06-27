@@ -21,8 +21,17 @@ class User extends Base{
 
 	public function trainings()
  	{
- 		return $this->belongsToMany('Training', 'users_trainings')->withPivot('state', 'participate');
+ 		return $this->belongsToMany('Training', 'users_trainings')->withPivot('id','state', 'participate');
  	}
+
+ 	public function hasGroup($name)
+	{
+		$group = $this->groups()->where('name', $name)->first();
+		if (!is_null($group))
+		{
+			return true;
+		}
+	}
 
  	public function scopeFilter($res, $search)
 	{
@@ -116,7 +125,8 @@ class User extends Base{
 
 	public function trainings_to_confirm()
 	{
-		return $this->trainings()->wherePivot('participate', NULL)->get();
+		if ($this->hasGroup('student')){return $this->trainings()->wherePivot('participate', NULL)->get();}
+		return $this->trainings()->wherePivot('id', NULL)->get();
 	}
 
 	public function valid_trainings()

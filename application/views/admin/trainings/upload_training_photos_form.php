@@ -8,7 +8,7 @@
 				</h4>
 			</div>
 			<div class="modal-body">
-			<?php echo  form_open_multipart('admin/trainings/update/'.$training->id, array('class' => 'form', 'role' => 'form', 'id' => 'form-create-training'))?>
+			<?php echo  form_open_multipart(isset($upload_url) ? $upload_url : 'admin/trainings/update/'.$training->id, array('class' => 'form', 'role' => 'form', 'id' => 'form-create-training'))?>
 
 				<div class="form-group form-group-training-materials-files <?php echo has_error_for_nested($training->photos, 'file_name')?> ">
 				    <?php echo form_label('Photos', 'photos', array('class' => 'control-label'))?>

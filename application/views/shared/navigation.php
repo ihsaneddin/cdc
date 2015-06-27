@@ -15,12 +15,6 @@
                 <a href="javascript:void(0);" class="sb-icon-navbar sb-toggle-right"><i class="fa fa-bars"></i></a>
                 <ul class="nav navbar-nav">
 
-                    <?php if ($sentry->hasAccess('home.index')) { ?>
-                    <li>
-                        <?php echo anchor('home','Home') ?>
-                    </li>
-                    <?php } ?>
-
                     <?php if ($sentry->hasAccess('trainings.index')) { ?>
                     <li>
                         <?php echo anchor('trainings','Trainings') ?>
